@@ -16,15 +16,20 @@ jobs:
           ref: main
           path: hio-base
 
-      - name: 'Checkout Release Repo'
-        uses: actions/checkout@v4
-        with:
-          repository: 'wtl-public/hio-typo3-connector'
-          token: ${{ secrets.RELEASE_REPO_TOKEN }}
-          ref: main
-          path: hio-release-repo
-          fetch-depth: 0
-
+      #- name: 'Checkout Release Repo'
+      #  uses: actions/checkout@v4
+      #  with:
+      #    repository: 'wtl-public/hio-typo3-connector'
+      #    token: ${{ secrets.RELEASE_REPO_TOKEN }}
+      #    ref: main
+      #    path: hio-release-repo
+      #    fetch-depth: 0
+      - name: 'Checkout public repo'
+        env:
+          RELEASE_REPO_TOKEN: ${{ secrets.RELEASE_REPO_TOKEN }}
+        run: |
+          git clone https://token:${{ secrets.RELEASE_REPO_TOKEN }}@github.com/wtl-public/hio-typo3-connector.git ./hio-release-repo
+      
       - name: 'Synchronize files'
         run: |
           # Löscht alte Dateien im geklonten Release-Repo (außer .git-Verzeichnis)
