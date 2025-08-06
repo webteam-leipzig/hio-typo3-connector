@@ -42,7 +42,7 @@ jobs:
         env:
           RELEASE_REPO_TOKEN: ${{ secrets.RELEASE_REPO_TOKEN }}
         run: |
-          # git config --unset-all http.https://github.com/.extraheader
+          git config --unset-all http.https://github.com/.extraheader
           # Wechsle in das Verzeichnis des Release-Repositories
           cd hio-release-repo
 
