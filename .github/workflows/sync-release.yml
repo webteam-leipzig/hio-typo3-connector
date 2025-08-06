@@ -36,7 +36,6 @@ jobs:
       - name: 'Configure Git and Push to Release Repo'
         env:
           RELEASE_REPO_TOKEN: ${{ secrets.RELEASE_REPO_TOKEN }}
-        working-directory: hio-release-repo
         run: |
           # git config --unset-all http.https://github.com/.extraheader
           # Wechsle in das Verzeichnis des Release-Repositories
