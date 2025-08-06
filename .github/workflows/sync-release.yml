@@ -41,10 +41,13 @@ jobs:
       - name: 'Configure Git and Push to Release Repo'
         env:
           RELEASE_REPO_TOKEN: ${{ secrets.RELEASE_REPO_TOKEN }}
+        working-directory: hio-release-repo
         run: |
+          echo $GIT_WORK_TREE
           git config --unset-all http.https://github.com/.extraheader
           # Wechsle in das Verzeichnis des Release-Repositories
-          cd hio-release-repo
+          # cd hio-release-repo
+
 
           # Konfiguriere Git mit dem Benutzer des Tokens (optional, aber gute Praxis)
           git config --global user.name "${{ github.actor }}"
