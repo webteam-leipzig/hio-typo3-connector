@@ -42,8 +42,6 @@ jobs:
         env:
           RELEASE_REPO_TOKEN: ${{ secrets.RELEASE_REPO_TOKEN }}
         run: |
-          ls -lah .git/
-          
           # Wechsle in das Verzeichnis des Release-Repositories
           cd hio-release-repo
 
