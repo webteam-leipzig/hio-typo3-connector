@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Wtl\HioTypo3Connector\Controller;
 
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 use TYPO3\CMS\Backend\Attribute\AsController;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Pagination\SlidingWindowPagination;
