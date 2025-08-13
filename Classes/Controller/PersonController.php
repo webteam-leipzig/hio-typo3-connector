@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Wtl\HioTypo3Connector\Controller;
 
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 use TYPO3\CMS\Backend\Attribute\AsController;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Error\Http\PageNotFoundException;
@@ -31,10 +32,10 @@ class PersonController extends BaseController
         protected readonly ModuleTemplateFactory $moduleTemplateFactory,
         protected readonly PersonRepository      $personRepository,
         protected readonly PropertyMapper        $propertyMapper,
-        protected readonly LoggerInterface $logger,
         protected readonly PublicationRepository $publicationRepository,
         protected readonly CitationStyleRepository $citationStyleRepository,
         protected readonly PersonStats $personStatsService,
+        protected readonly LoggerInterface $logger,
     )
     {
     }
@@ -49,16 +50,18 @@ class PersonController extends BaseController
                     $filter = FilterDto::fromRequest($this->request);
                 }
                 catch (\Throwable $e) {
+
                     $this->logger->error(
                         'Failed to parse filter from request: ' . $e->getMessage(),
                         ['exception' => $e]
                     );
+
                     $filter = new FilterDto();
                 }
             }
         }
 
-        $this->request->withArgument('filter',  $filter);
+        $this->request = $this->request->withArgument('filter',  $filter);
     }
     public function indexAction(FilterDto $filter, int $currentPage = 1): ResponseInterface
     {
@@ -68,31 +71,16 @@ class PersonController extends BaseController
                 arguments: [
                     'currentPage' => $currentPage,
                     'filter' => $filter->toArray(),
-                    'searchTerm' => $this->request->getParsedBody()['searchTerm'] ?? '',
                 ]
             );
         }
         $paginator = $this->getPaginator(
-            $this->personRepository->findAll(),
+            $this->personRepository->findByFilter($filter),
         );
         $this->view->assignMultiple([
             'paginator' => $paginator,
             'pagination' => new SlidingWindowPagination($paginator, 12),
-            'searchTerm' => $this->getSearchTermFromRequest(),
-        ]);
-
-        return $this->htmlResponse();
-    }
-
-    public function searchAction(int $currentPage = 1, string $searchTerm = ''): ResponseInterface
-    {
-        $paginator = $this->getPaginator(
-            $this->personRepository->findBySearchTerm($searchTerm),
-        );
-        $this->view->assignMultiple([
-            'paginator' => $paginator,
-            'pagination' => new SlidingWindowPagination($paginator, 12),
-            'searchTerm' => $this->getSearchTermFromRequest(),
+            'filter' => $filter,
         ]);
 
         return $this->htmlResponse();

@@ -5,6 +5,7 @@ namespace Wtl\HioTypo3Connector\Domain\Dto;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Extbase\Mvc\Request as ExtbaseRequest;
 
+#[Autoconfigure(public: false, shared: false)]
 class FilterDto
 {
     public function __construct(

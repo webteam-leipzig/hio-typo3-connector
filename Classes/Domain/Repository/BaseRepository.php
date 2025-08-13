@@ -5,6 +5,7 @@ namespace Wtl\HioTypo3Connector\Domain\Repository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Extbase\Persistence\Repository;
+use Wtl\HioTypo3Connector\Domain\Dto\FilterDto;
 
 class BaseRepository extends Repository
 {
@@ -24,6 +25,21 @@ class BaseRepository extends Repository
                 $query->like('searchIndex', '%' . strtolower($searchTerm) . '%'),
             )
         );
+
+        return $query->execute();
+    }
+
+    public function findByFilter(FilterDto $filter) {
+        $query = $this->createQuery();
+
+        if ($filter->getSearchTerm()) {
+            $searchTerm = trim($filter->getSearchTerm());
+            $query->matching(
+                $query->logicalOr(
+                    $query->like('searchIndex', '%' . strtolower($searchTerm) . '%'),
+                )
+            );
+        }
 
         return $query->execute();
     }
