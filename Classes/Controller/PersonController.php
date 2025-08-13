@@ -15,6 +15,7 @@ use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Property\PropertyMapper;
 use TYPO3\CMS\Frontend\Controller\ErrorController;
+use Wtl\HioTypo3Connector\Domain\Dto\FilterDto;
 use Wtl\HioTypo3Connector\Domain\Model\Person;
 use Wtl\HioTypo3Connector\Domain\Repository\CitationStyleRepository;
 use Wtl\HioTypo3Connector\Domain\Repository\PersonRepository;
@@ -30,6 +31,7 @@ class PersonController extends BaseController
         protected readonly ModuleTemplateFactory $moduleTemplateFactory,
         protected readonly PersonRepository      $personRepository,
         protected readonly PropertyMapper        $propertyMapper,
+        protected readonly LoggerInterface $logger,
         protected readonly PublicationRepository $publicationRepository,
         protected readonly CitationStyleRepository $citationStyleRepository,
         protected readonly PersonStats $personStatsService,
@@ -37,8 +39,39 @@ class PersonController extends BaseController
     {
     }
 
-    public function indexAction(): ResponseInterface
+    public function initializeIndexAction(): void
     {
+        $filter = new FilterDto();
+        if ($this->request->hasArgument('filter')) {
+            $filter = $this->request->getArgument('filter');
+            if (! $filter instanceof FilterDto) {
+                try {
+                    $filter = FilterDto::fromRequest($this->request);
+                }
+                catch (\Throwable $e) {
+                    $this->logger->error(
+                        'Failed to parse filter from request: ' . $e->getMessage(),
+                        ['exception' => $e]
+                    );
+                    $filter = new FilterDto();
+                }
+            }
+        }
+
+        $this->request->withArgument('filter',  $filter);
+    }
+    public function indexAction(FilterDto $filter, int $currentPage = 1): ResponseInterface
+    {
+        if ($this->request->getMethod() === 'POST') {
+            return $this->redirect(
+                actionName: 'index',
+                arguments: [
+                    'currentPage' => $currentPage,
+                    'filter' => $filter->toArray(),
+                    'searchTerm' => $this->request->getParsedBody()['searchTerm'] ?? '',
+                ]
+            );
+        }
         $paginator = $this->getPaginator(
             $this->personRepository->findAll(),
         );
