@@ -67,15 +67,15 @@ class PublicationRepository extends BaseRepository
         return $query->execute();
     }
 
-    public function countPublicationsByTypeAndPerson(Person $person): array
+    public function countPublicationsByTypeAndPerson(Person $person)
     {
         $publicationIds = [];
-        $publications = $person->getPublications();
-        if ($publications->empty()) {
-            return [];
-        }
-        foreach ($publications as $publication) {
+        foreach ($person->getPublications() as $publication) {
             $publicationIds[] = $publication->getObjectId();
+        }
+
+        if (empty($publicationIds)) {
+            return [];
         }
 
         $query = $this->createQuery();
