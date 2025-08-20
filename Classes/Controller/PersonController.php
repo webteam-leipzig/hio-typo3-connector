@@ -42,38 +42,25 @@ class PersonController extends BaseController
 
     public function initializeIndexAction(): void
     {
-        $filter = new FilterDto();
-        if ($this->request->hasArgument('filter')) {
-            $filter = $this->request->getArgument('filter');
-            if (! $filter instanceof FilterDto) {
-                try {
-                    $filter = FilterDto::fromRequest($this->request);
-                }
-                catch (\Throwable $e) {
-
-                    $this->logger->error(
-                        'Failed to parse filter from request: ' . $e->getMessage(),
-                        ['exception' => $e]
-                    );
-
-                    $filter = new FilterDto();
-                }
-            }
-        }
-
+        $filter = $this->getFilterFromRequest();
         $this->request = $this->request->withArgument('filter',  $filter);
     }
-    public function indexAction(FilterDto $filter, int $currentPage = 1): ResponseInterface
+    public function indexAction(FilterDto $filter, int $currentPageNumber = 1): ResponseInterface
     {
         if ($this->request->getMethod() === 'POST') {
+            if ($filter->shouldReset()) {
+                $filter = $filter->resetFilter();
+            }
             return $this->redirect(
                 actionName: 'index',
                 arguments: [
-                    'currentPage' => $currentPage,
                     'filter' => $filter->toArray(),
+                    'currentPageNumber' => $currentPageNumber
                 ]
             );
         }
+
+//        var_dump($filter);exit();
         $paginator = $this->getPaginator(
             $this->personRepository->findByFilter($filter),
         );
@@ -96,13 +83,15 @@ class PersonController extends BaseController
                 $this->request = $this->request->withArgument('person', $person);
             }
         }
+        $filter = $this->getFilterFromRequest();
+        $this->request = $this->request->withArgument('filter', $filter);
     }
 
     /**
      * @throws ImmediateResponseException
      * @throws PageNotFoundException
      */
-    public function showAction(?Person $person = null, string $listAction = 'index'): ResponseInterface
+    public function showAction(?Person $person = null): ResponseInterface
     {
         if ($person === null) {
             $response = GeneralUtility::makeInstance(ErrorController::class)->pageNotFoundAction($this->request, 'Person not found');
@@ -112,8 +101,7 @@ class PersonController extends BaseController
             [
                 'person' => $person,
                 'currentPageNumber' => $this->getCurrentPageNumberFromRequest(),
-                'searchTerm' => $this->getSearchTermFromRequest(),
-                'listAction' => $listAction,
+                'filter' => $this->getFilterFromRequest(),
                 'typeStatistics' => $this->personStatsService->getPublicationTypeStats($person) ?? [],
                 'coAuthorshipStatistics' => $this->personStatsService->getCoAuthorshipStats($person) ?? [],
                 'projectStatusStatistics' => $this->personStatsService->getProjectCountByStatus($person) ?? [],

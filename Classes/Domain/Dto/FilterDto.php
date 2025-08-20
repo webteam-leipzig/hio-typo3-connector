@@ -11,6 +11,7 @@ class FilterDto
     public function __construct(
         protected bool $showFilterForm = true,
         protected ?string $searchTerm = null,
+        protected bool $reset = false,
     )
     {}
 
@@ -33,6 +34,16 @@ class FilterDto
         return $clone;
     }
 
+    public function shouldReset(): bool
+    {
+        return $this->reset;
+    }
+
+    public function resetFilter(): self
+    {
+        return new self();
+    }
+
     public function withSearchTerm(?string $searchTerm): self
     {
         $clone = clone $this;
@@ -50,18 +61,21 @@ class FilterDto
         return [
             'showFilterForm' => $this->shouldShowFilterForm(),
             'searchTerm' => $this->getSearchTerm(),
+            'reset' => $this->shouldReset(),
         ];
     }
 
     public static function fromArray(array $filter, ?self $origin = null): self
     {
         $instance = $origin instanceof self ? clone $origin : new self();
-
         if (isset($filter['showFilterForm'])) {
             $instance->showFilterForm = (bool)$filter['showFilterForm'];
         }
         if (isset($filter['searchTerm'])) {
             $instance->searchTerm = (string)$filter['searchTerm'];
+        }
+        if (isset($filter['reset'])) {
+            $instance->reset = (bool)$filter['reset'];
         }
         return $instance;
     }
