@@ -2,6 +2,8 @@
 
 namespace Wtl\HioTypo3Connector\Domain\Repository;
 
+use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 use Wtl\HioTypo3Connector\Domain\Dto\PublicationDto;
 use Wtl\HioTypo3Connector\Domain\Model\Person;
 use Wtl\HioTypo3Connector\Domain\Model\Publication;

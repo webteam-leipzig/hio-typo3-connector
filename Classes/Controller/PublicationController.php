@@ -65,7 +65,7 @@ class PublicationController extends BaseController
         $this->view->assignMultiple([
             'paginator' => $paginator,
             'pagination' => new SlidingWindowPagination($paginator, 12),
-            'filter' => $filter,
+            'filter' => $filter->toArray(),
         ]);
 
         return $this->htmlResponse();
@@ -76,7 +76,8 @@ class PublicationController extends BaseController
         $filter = $this->getFilterFromRequest();
         $this->request = $this->request->withArgument('filter',  $filter);
     }
-    public function showAction(Publication $publication, string $listAction = 'index'): ResponseInterface
+
+    public function showAction(Publication $publication): ResponseInterface
     {
         $this->view->assignMultiple(
             [
