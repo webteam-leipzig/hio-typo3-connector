@@ -56,20 +56,19 @@ class PatentController extends BaseController
         $this->view->assignMultiple([
             'paginator' => $paginator,
             'pagination' => new SlidingWindowPagination($paginator, 12),
-            'filter' => $this->getFilterFromRequest(),
+            'filter' => $filter->toArray(),
         ]);
 
         return $this->htmlResponse();
     }
 
-    public function showAction(Patent $patent, string $listAction = 'index'): ResponseInterface
+    public function showAction(Patent $patent): ResponseInterface
     {
         $this->view->assignMultiple(
             [
                 'patent' => $patent,
                 'currentPageNumber' => $this->getCurrentPageNumberFromRequest(),
-                'searchTerm' => $this->getSearchTermFromRequest(),
-                'listAction' => $listAction,
+                'filter' => $this->getFilterFromRequest(),
             ]
         );
         return $this->htmlResponse();
