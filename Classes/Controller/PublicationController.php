@@ -30,35 +30,21 @@ class PublicationController extends BaseController
 
     public function initializeIndexAction(): void
     {
-        $filter = new FilterDto();
-        if ($this->request->hasArgument('filter')) {
-            $filter = $this->request->getArgument('filter');
-            if (! $filter instanceof FilterDto) {
-                try {
-                    $filter = FilterDto::fromRequest($this->request);
-                }
-                catch (\Throwable $e) {
-                    $this->logger->error(
-                        'Failed to parse filter from request: ' . $e->getMessage(),
-                        ['exception' => $e]
-                    );
-                    $filter = new FilterDto();
-                }
-            }
-        }
-
-        $this->request->withArgument('filter',  $filter);
+        $filter = $this->getFilterFromRequest();
+        $this->request = $this->request->withArgument('filter',  $filter);
     }
 
-    public function indexAction(FilterDto $filter, int $currentPage = 1): ResponseInterface
+    public function indexAction(FilterDto $filter, int $currentPageNumber = 1): ResponseInterface
     {
         if ($this->request->getMethod() === 'POST') {
+            if ($filter->shouldReset()) {
+                $filter = $filter->resetFilter();
+            }
             return $this->redirect(
                 actionName: 'index',
                 arguments: [
-                    'currentPage' => $currentPage,
+                    'currentPageNumber' => $currentPageNumber,
                     'filter' => $filter->toArray(),
-                    'searchTerm' => $this->request->getParsedBody()['searchTerm'] ?? '',
                 ]
             );
         }
@@ -67,10 +53,10 @@ class PublicationController extends BaseController
         if ($orderBy !== '') {
             [$propertyName, $order] = explode(':', $orderBy);
             if (in_array($propertyName, ['title', 'type', 'releaseYear'])) {
-                $publications = $this->publicationRepository->getPublications([$propertyName => $order]);
+                $publications = $this->publicationRepository->findByFilter($filter, [$propertyName => $order]);
             }
         } else {
-            $publications = $this->publicationRepository->findAll();
+            $publications = $this->publicationRepository->findByFilter($filter);
         }
         $paginator = $this->getPaginator(
             $publications,
@@ -79,34 +65,24 @@ class PublicationController extends BaseController
         $this->view->assignMultiple([
             'paginator' => $paginator,
             'pagination' => new SlidingWindowPagination($paginator, 12),
-            'searchTerm' => $this->getSearchTermFromRequest(),
+            'filter' => $filter,
         ]);
 
         return $this->htmlResponse();
     }
 
-    public function searchAction(int $currentPage = 1, string $searchTerm = ''): ResponseInterface
+    public function initializeShowAction(): void
     {
-        $paginator = $this->getPaginator(
-            $this->publicationRepository->findBySearchTerm($searchTerm),
-        );
-        $this->view->assignMultiple([
-            'paginator' => $paginator,
-            'pagination' => new SlidingWindowPagination($paginator, 12),
-            'searchTerm' => $this->getSearchTermFromRequest(),
-        ]);
-
-        return $this->htmlResponse();
+        $filter = $this->getFilterFromRequest();
+        $this->request = $this->request->withArgument('filter',  $filter);
     }
-
     public function showAction(Publication $publication, string $listAction = 'index'): ResponseInterface
     {
         $this->view->assignMultiple(
             [
                 'publication' => $publication,
                 'currentPageNumber' => $this->getCurrentPageNumberFromRequest(),
-                'searchTerm' => $this->getSearchTermFromRequest(),
-                'listAction' => $listAction,
+                'filter' => $this->getFilterFromRequest(),
             ]
         );
         return $this->htmlResponse();
