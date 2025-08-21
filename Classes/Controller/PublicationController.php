@@ -11,7 +11,7 @@ use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Pagination\SlidingWindowPagination;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Property\PropertyMapper;
-use Wtl\HioTypo3Connector\Domain\Dto\FilterDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Filter\PublicationFilter;
 use Wtl\HioTypo3Connector\Domain\Model\Publication;
 use Wtl\HioTypo3Connector\Domain\Repository\PublicationRepository;
 
@@ -34,7 +34,7 @@ class PublicationController extends BaseController
         $this->request = $this->request->withArgument('filter',  $filter);
     }
 
-    public function indexAction(FilterDto $filter, int $currentPageNumber = 1): ResponseInterface
+    public function indexAction(PublicationFilter $filter, int $currentPageNumber = 1): ResponseInterface
     {
         if ($this->request->getMethod() === 'POST') {
             if ($filter->shouldReset()) {
@@ -87,5 +87,26 @@ class PublicationController extends BaseController
             ]
         );
         return $this->htmlResponse();
+    }
+
+    protected function getFilterFromRequest(): PublicationFilter
+    {
+        $filter = new PublicationFilter();
+        if ($this->request->hasArgument('filter')) {
+            $filter = $this->request->getArgument('filter');
+            if (! $filter instanceof PublicationFilter) {
+                try {
+                    $filter = PublicationFilter::fromRequest($this->request);
+                }
+                catch (\Throwable $e) {
+                    $this->logger->error(
+                        'Failed to parse filter from request: ' . $e->getMessage(),
+                        ['exception' => $e]
+                    );
+                    $filter = new PublicationFilter();
+                }
+            }
+        }
+        return $filter;
     }
 }

@@ -12,7 +12,7 @@ use TYPO3\CMS\Core\Pagination\ArrayPaginator;
 use TYPO3\CMS\Core\Pagination\SlidingWindowPagination;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Property\PropertyMapper;
-use Wtl\HioTypo3Connector\Domain\Dto\FilterDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Filter\FilterDto;
 use Wtl\HioTypo3Connector\Domain\Model\Patent;
 use Wtl\HioTypo3Connector\Domain\Repository\PatentRepository;
 

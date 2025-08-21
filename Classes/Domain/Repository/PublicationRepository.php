@@ -4,6 +4,8 @@ namespace Wtl\HioTypo3Connector\Domain\Repository;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use Wtl\HioTypo3Connector\Domain\Dto\Filter\FilterDto as FilterDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Filter\PublicationFilter;
 use Wtl\HioTypo3Connector\Domain\Dto\PublicationDto;
 use Wtl\HioTypo3Connector\Domain\Model\Person;
 use Wtl\HioTypo3Connector\Domain\Model\Publication;
@@ -56,6 +58,36 @@ class PublicationRepository extends BaseRepository
         $query->setOrderings($ordering);
         $query->getQuerySettings()->setRespectStoragePage(false);
         $query->matching($query->in('objectId', $publicationIds));
+
+        return $query->execute();
+    }
+
+    public function findByFilter(PublicationFilter|FilterDto $filter, ?array $ordering = [])
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+
+        if ($filter->getSearchTerm()) {
+            $searchTerm = trim($filter->getSearchTerm());
+            $query->matching(
+                $query->logicalOr(
+                    $query->like('searchIndex', '%' . strtolower($searchTerm) . '%'),
+                )
+            );
+        }
+        if ($filter->getReleaseYearFrom()) {
+            $query->matching(
+                $query->greaterThanOrEqual('releaseYear', $filter->getReleaseYearFrom())
+            );
+        }
+        if ($filter->getReleaseYearTo()) {
+            $query->matching(
+                $query->lessThanOrEqual('releaseYear', $filter->getReleaseYearTo())
+            );
+        }
+        if ($ordering) {
+            $query->setOrderings($ordering);
+        }
 
         return $query->execute();
     }

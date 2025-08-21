@@ -16,7 +16,7 @@ use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Property\PropertyMapper;
 use TYPO3\CMS\Frontend\Controller\ErrorController;
-use Wtl\HioTypo3Connector\Domain\Dto\FilterDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Filter\FilterDto;
 use Wtl\HioTypo3Connector\Domain\Model\Person;
 use Wtl\HioTypo3Connector\Domain\Repository\CitationStyleRepository;
 use Wtl\HioTypo3Connector\Domain\Repository\PersonRepository;

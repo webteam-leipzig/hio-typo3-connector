@@ -1,6 +1,6 @@
 <?php
 
-namespace Wtl\HioTypo3Connector\Domain\Dto;
+namespace Wtl\HioTypo3Connector\Domain\Dto\Filter;
 
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Extbase\Mvc\Request as ExtbaseRequest;
