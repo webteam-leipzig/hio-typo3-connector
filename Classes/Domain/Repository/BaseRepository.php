@@ -29,8 +29,10 @@ class BaseRepository extends Repository
         return $query->execute();
     }
 
-    public function findByFilter(FilterDto $filter) {
+    public function findByFilter(FilterDto $filter, ?array $ordering = [])
+    {
         $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
 
         if ($filter->getSearchTerm()) {
             $searchTerm = trim($filter->getSearchTerm());
@@ -39,6 +41,9 @@ class BaseRepository extends Repository
                     $query->like('searchIndex', '%' . strtolower($searchTerm) . '%'),
                 )
             );
+        }
+        if ($ordering) {
+            $query->setOrderings($ordering);
         }
 
         return $query->execute();
