@@ -16,13 +16,6 @@ class BaseController extends AbstractController
             : 1;
     }
 
-    protected function getSearchTermFromRequest(): string
-    {
-        return $this->request->hasArgument('searchTerm')
-            ? (string)$this->request->getArgument('searchTerm')
-            : '';
-    }
-
     protected function getFilterFromRequest(): FilterDto
     {
         $filter = new FilterDto();
