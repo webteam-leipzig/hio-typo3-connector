@@ -4,7 +4,6 @@ namespace Wtl\HioTypo3Connector\Controller;
 
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-use Wtl\HioTypo3Connector\Controller\AbstractController;
 use Wtl\HioTypo3Connector\Domain\Dto\FilterDto;
 
 class BaseController extends AbstractController
