@@ -66,29 +66,32 @@ class PublicationRepository extends BaseRepository
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
+        
+        $constraints = [];
 
         if ($filter->getSearchTerm()) {
             $searchTerm = trim($filter->getSearchTerm());
-            $query->matching(
-                $query->logicalOr(
+            $constraints[] = $query->logicalOr(
                     $query->like('searchIndex', '%' . strtolower($searchTerm) . '%'),
-                )
-            );
+                );
         }
         if ($filter->getReleaseYearFrom()) {
-            $query->matching(
-                $query->greaterThanOrEqual('releaseYear', $filter->getReleaseYearFrom())
-            );
+            $constraints[] = 
+                    $query->greaterThanOrEqual('releaseYear', $filter->getReleaseYearFrom());
         }
+
         if ($filter->getReleaseYearTo()) {
-            $query->matching(
-                $query->lessThanOrEqual('releaseYear', $filter->getReleaseYearTo())
-            );
+            $constraints[] = $query->lessThanOrEqual('releaseYear', $filter->getReleaseYearTo());
+            
         }
         if ($filter->getType()) {
-            $query->matching(
-                $query->equals('type', $filter->getType())
+            $constraints[] =
+                $query->equals('type', $filter->getType()
             );
+        }
+
+        if (!empty($constraints)) {
+            $query->matching($query->logicalAnd(...$constraints));
         }
 
         // Apply ordering if provided
