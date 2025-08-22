@@ -14,6 +14,7 @@ class PublicationFilter extends FilterDto
         protected ?string $searchTerm = null,
         protected ?string $releaseYearFrom = null,
         protected ?string $releaseYearTo = null,
+        protected ?string $type = null,
     )
     {
         parent::__construct(
@@ -47,6 +48,18 @@ class PublicationFilter extends FilterDto
         return $this->releaseYearTo;
     }
 
+    public function withType(?string $type): self
+    {
+        $clone = clone $this;
+        $clone->type = $type;
+        return $clone;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
     public function toArray(): array
     {
         return array_merge(
@@ -54,6 +67,7 @@ class PublicationFilter extends FilterDto
             [
                 'releaseYearFrom' => $this->getReleaseYearFrom(),
                 'releaseYearTo' => $this->getReleaseYearTo(),
+                'type' => $this->getType(),
             ]
         );
     }
@@ -75,6 +89,9 @@ class PublicationFilter extends FilterDto
         }
         if (isset($filter['releaseYearTo'])) {
             $instance->releaseYearTo = (string)$filter['releaseYearTo'];
+        }
+        if (isset($filter['type'])) {
+            $instance->type = (string)$filter['type'];
         }
         return $instance;
     }

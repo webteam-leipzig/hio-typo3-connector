@@ -62,10 +62,18 @@ class PublicationController extends BaseController
             $publications,
         );
 
+        $typeOptions = array_map(
+            fn($value) => ['value' => $value['type'], 'label' => $value['type']],
+            $this->publicationRepository->getPublicationTypes() ?? []
+        );
+        if (!empty($typeOptions)) {
+            array_unshift($typeOptions, ['value' => '', 'label' => 'Alle']);
+        }
         $this->view->assignMultiple([
             'paginator' => $paginator,
             'pagination' => new SlidingWindowPagination($paginator, 12),
             'filter' => $filter->toArray(),
+            'publicationTypes' => $typeOptions,
         ]);
 
         return $this->htmlResponse();

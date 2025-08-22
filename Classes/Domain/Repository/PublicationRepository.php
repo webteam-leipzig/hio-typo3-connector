@@ -85,6 +85,13 @@ class PublicationRepository extends BaseRepository
                 $query->lessThanOrEqual('releaseYear', $filter->getReleaseYearTo())
             );
         }
+        if ($filter->getType()) {
+            $query->matching(
+                $query->equals('type', $filter->getType())
+            );
+        }
+
+        // Apply ordering if provided
         if ($ordering) {
             $query->setOrderings($ordering);
         }
@@ -121,4 +128,13 @@ class PublicationRepository extends BaseRepository
         return $query->execute(true);
     }
 
+    public function getPublicationTypes()
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        $query->statement(
+            'SELECT DISTINCT type FROM tx_hiotypo3connector_domain_model_publication WHERE type IS NOT NULL ORDER BY type'
+        );
+        return $query->execute(true);
+    }
 }
