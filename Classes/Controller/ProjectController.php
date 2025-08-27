@@ -54,19 +54,12 @@ class ProjectController extends BaseController
             $this->projectRepository->findByFilter($filter),
         );
 
-        $typeOptions = array_map(
-            fn($value) => ['value' => $value['type'], 'label' => $value['type']],
-            $this->projectRepository->getProjectTypes() ?? []
-        );
-        if (!empty($typeOptions)) {
-            array_unshift($typeOptions, ['value' => '', 'label' => 'Alle']);
-        }
-
         $this->view->assignMultiple([
             'paginator' => $paginator,
             'pagination' => new SlidingWindowPagination($paginator, 12),
             'filter' => $this->getFilterFromRequest(),
-            'projectTypes' => $typeOptions,
+            'statusOptions' => $this->getProjectStatusOptions(),
+            'typeOptions' => $this->getProjectTypeOptions(),
         ]);
 
         return $this->htmlResponse();
@@ -109,4 +102,31 @@ class ProjectController extends BaseController
             }
         }
         return $filter;
-    }}
+    }
+
+    protected function getProjectStatusOptions(): array
+    {
+        $options = array_map(
+            fn($value) => ['value' => $value['status'], 'label' => $value['status']],
+            $this->projectRepository->getProjectStatus() ?? []
+        );
+        if (!empty($options)) {
+            array_unshift($options, ['value' => '', 'label' => 'Alle']);
+        }
+
+        return $options ?? [];
+    }
+
+    protected function getProjectTypeOptions(): array
+    {
+        $options = array_map(
+            fn($value) => ['value' => $value['type'], 'label' => $value['type']],
+            $this->projectRepository->getProjectTypes() ?? []
+        );
+        if (!empty($options)) {
+            array_unshift($options, ['value' => '', 'label' => 'Alle']);
+        }
+
+        return $options ?? [];
+    }
+}

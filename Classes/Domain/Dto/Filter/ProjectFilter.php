@@ -67,14 +67,23 @@ class ProjectFilter extends FilterDto
 
     public function withType(?string $type): self
     {
-        $clone = clone $this;
-        $clone->type = $type;
-        return $clone;
+        $this->type = $type;
+        return $this;
     }
 
     public function getType(): ?string
     {
         return $this->type;
+    }
+
+    public function withStatus(?string $status): self
+    {
+        $this->status = $status;
+        return $this;
+    }
+    public function getStatus(): ?string
+    {
+        return $this->status;
     }
 
     public function toArray(): array
@@ -86,6 +95,7 @@ class ProjectFilter extends FilterDto
                 'startDateTo' => $this->getStartDateTo(),
                 'endDateFrom' => $this->getEndDateFrom(),
                 'endDateTo' => $this->getEndDateTo(),
+                'status' => $this->getStatus(),
                 'type' => $this->getType(),
             ]
         );
@@ -114,6 +124,9 @@ class ProjectFilter extends FilterDto
         }
         if (isset($filter['endDateTo'])) {
             $instance->endDateTo = (string)$filter['endDateTo'];
+        }
+        if (isset($filter['status'])) {
+            $instance->status = (string)$filter['status'];
         }
         if (isset($filter['type'])) {
             $instance->type = (string)$filter['type'];

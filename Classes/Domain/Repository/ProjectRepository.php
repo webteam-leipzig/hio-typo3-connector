@@ -61,18 +61,27 @@ class ProjectRepository extends BaseRepository
             );
         }
         if ($filter->getStartDateFrom()) {
-            $constraints[] =
-                $query->greaterThanOrEqual('startDate', $filter->getStartDateFrom());
+            $constraints[] = $query->greaterThanOrEqual('startDate', $filter->getStartDateFrom());
         }
 
         if ($filter->getStartDateTo()) {
             $constraints[] = $query->lessThanOrEqual('startDate', $filter->getStartDateTo());
         }
 
+        if ($filter->getEndDateFrom()) {
+            $constraints[] = $query->greaterThanOrEqual('endDate', $filter->getEndDateFrom());
+        }
+
+        if ($filter->getEndDateTo()) {
+            $constraints[] = $query->lessThanOrEqual('endDate', $filter->getEndDateTo());
+        }
+
+        if ($filter->getStatus()) {
+            $constraints[] = $query->equals('status', $filter->getStatus());
+        }
+
         if ($filter->getType()) {
-            $constraints[] =
-                $query->equals('type', $filter->getType()
-                );
+            $constraints[] = $query->equals('type', $filter->getType());
         }
 
         if (!empty($constraints)) {
@@ -83,8 +92,18 @@ class ProjectRepository extends BaseRepository
         if ($ordering) {
             $query->setOrderings($ordering);
         }
-
+//        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($query, 'Optional Title');
         return $query->execute();
+    }
+
+    public function getProjectStatus()
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        $query->statement(
+            'SELECT DISTINCT status FROM tx_hiotypo3connector_domain_model_project WHERE status IS NOT NULL AND status != "" ORDER BY status'
+        );
+        return $query->execute(true);
     }
 
     public function getProjectTypes()
