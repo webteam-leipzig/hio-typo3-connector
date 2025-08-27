@@ -26,9 +26,8 @@ class PublicationFilter extends FilterDto
 
     public function withReleaseYearFrom(?string $releaseYear): self
     {
-        $clone = clone $this;
-        $clone->releaseYearFrom = $releaseYear;
-        return $clone;
+        $this->releaseYearFrom = $releaseYear;
+        return $this;
     }
 
     public function getReleaseYearFrom(): ?string
@@ -38,9 +37,8 @@ class PublicationFilter extends FilterDto
 
     public function withReleaseYearTo(?string $releaseYear): self
     {
-        $clone = clone $this;
-        $clone->releaseYearTo = $releaseYear;
-        return $clone;
+        $this->releaseYearTo = $releaseYear;
+        return $this;
     }
 
     public function getReleaseYearTo(): ?string
@@ -50,9 +48,8 @@ class PublicationFilter extends FilterDto
 
     public function withType(?string $type): self
     {
-        $clone = clone $this;
-        $clone->type = $type;
-        return $clone;
+        $this->type = $type;
+        return $this;
     }
 
     public function getType(): ?string
