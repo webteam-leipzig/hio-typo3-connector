@@ -92,7 +92,7 @@ class ProjectRepository extends BaseRepository
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
         $query->statement(
-            'SELECT DISTINCT type FROM tx_hiotypo3connector_domain_model_project WHERE type IS NOT NULL ORDER BY type'
+            'SELECT DISTINCT type FROM tx_hiotypo3connector_domain_model_project WHERE type IS NOT NULL AND type != "" ORDER BY type'
         );
         return $query->execute(true);
     }
