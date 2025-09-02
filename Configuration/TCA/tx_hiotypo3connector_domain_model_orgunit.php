@@ -153,6 +153,24 @@ return [
                 'MM' => 'tx_hiotypo3connector_orgunit_habilitation_mm',
             ],
         ],
+        'research_infrastructures' => [
+            'label' => $lllPrefix . 'tx_hiotypo3connector_domain_model_orgunit.researchInfrastructures',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+                'foreign_table' => 'tx_hiotypo3connector_domain_model_researchinfrastructure',
+                'MM' => 'tx_hiotypo3connector_orgunit_researchinfrastructure_mm',
+            ],
+        ],
+        'spin_offs' => [
+            'label' => $lllPrefix . 'tx_hiotypo3connector_domain_model_orgunit.spinOffs',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+                'foreign_table' => 'tx_hiotypo3connector_domain_model_spinoff',
+                'MM' => 'tx_hiotypo3connector_orgunit_spinoff_mm',
+            ],
+        ],
     ],
     'types' => [
         0 => [

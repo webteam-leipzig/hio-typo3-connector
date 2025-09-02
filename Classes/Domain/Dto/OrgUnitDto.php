@@ -25,6 +25,8 @@ class OrgUnitDto
     protected array $patents = [];
     protected array $projects = [];
     protected array $publications = [];
+    protected array $researchInfrastructures = [];
+    protected array $spinOffs = [];
 
     public function getTitle(): string
     {
@@ -81,6 +83,24 @@ class OrgUnitDto
         $this->habilitations = $habilitations;
     }
 
+    public function getResearchInfrastructures(): array
+    {
+        return $this->researchInfrastructures;
+    }
+    public function setResearchInfrastructures(array $researchInfrastructures): void
+    {
+        $this->researchInfrastructures = $researchInfrastructures;
+    }
+
+    public function getSpinOffs(): array
+    {
+        return $this->spinOffs;
+    }
+    public function setSpinOffs(array $spinOffs): void
+    {
+        $this->spinOffs = $spinOffs;
+    }
+
     static public function fromArray(array $data): OrgUnitDto
     {
         $dto = new self();
@@ -119,6 +139,18 @@ class OrgUnitDto
             $publications[] = PublicationDto::fromArray($publication);
         }
         $dto->setPublications($publications);
+
+        $researchInfrastructures = [];
+        foreach ($data['researchInfrastructures'] ?? [] as $researchInfrastructure) {
+            $researchInfrastructures[] = OrgUnitDto::fromArray($researchInfrastructure);
+        }
+        $dto->setResearchInfrastructures($researchInfrastructures);
+
+        $spinOffs = [];
+        foreach ($data['spinOffs'] ?? [] as $spinOff) {
+            $spinOffs[] = OrgUnitDto::fromArray($spinOff);
+        }
+        $dto->setSpinOffs($spinOffs);
 
         return $dto;
     }

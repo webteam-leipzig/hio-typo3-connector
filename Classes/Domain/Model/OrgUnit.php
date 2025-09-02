@@ -47,6 +47,16 @@ class OrgUnit extends AbstractEntity
      */
     protected ObjectStorage $patents;
 
+    /**
+     * @var ObjectStorage<ResearchInfrastructure>
+     */
+    protected ObjectStorage $researchInfrastructures;
+
+    /**
+     * @var ObjectStorage<SpinOff>
+     */
+    protected ObjectStorage $spinOffs;
+
     public function __construct()
     {
         $this->initializeObject();
@@ -59,6 +69,8 @@ class OrgUnit extends AbstractEntity
         $this->patents = new ObjectStorage();
         $this->projects = new ObjectStorage();
         $this->publications = new ObjectStorage();
+        $this->researchInfrastructures = new ObjectStorage();
+        $this->spinOffs = new ObjectStorage();
     }
 
     public function getObjectId(): int
@@ -200,6 +212,52 @@ class OrgUnit extends AbstractEntity
     {
         if ($this->doctoralPrograms->contains($doctoralProgram)) {
             $this->doctoralPrograms->detach($doctoralProgram);
+        }
+        return $this;
+    }
+
+    public function getResearchInfrastructures(): ObjectStorage
+    {
+        return $this->researchInfrastructures;
+    }
+    public function setResearchInfrastructures(ObjectStorage $researchInfrastructures): void
+    {
+        $this->researchInfrastructures = $researchInfrastructures;
+    }
+    public function addResearchInfrastructure(ResearchInfrastructure $researchInfrastructure): self
+    {
+        if (!$this->researchInfrastructures->contains($researchInfrastructure)) {
+            $this->researchInfrastructures->attach($researchInfrastructure);
+        }
+        return $this;
+    }
+    public function removeResearchInfrastructure(ResearchInfrastructure $researchInfrastructure): self
+    {
+        if ($this->researchInfrastructures->contains($researchInfrastructure)) {
+            $this->researchInfrastructures->detach($researchInfrastructure);
+        }
+        return $this;
+    }
+
+    public function getSpinOffs(): ObjectStorage
+    {
+        return $this->spinOffs;
+    }
+    public function setSpinOffs(ObjectStorage $spinOffs): void
+    {
+        $this->spinOffs = $spinOffs;
+    }
+    public function addSpinOff(SpinOff $spinOff): self
+    {
+        if (!$this->spinOffs->contains($spinOff)) {
+            $this->spinOffs->attach($spinOff);
+        }
+        return $this;
+    }
+    public function removeSpinOff(SpinOff $spinOff): self
+    {
+        if ($this->spinOffs->contains($spinOff)) {
+            $this->spinOffs->detach($spinOff);
         }
         return $this;
     }
