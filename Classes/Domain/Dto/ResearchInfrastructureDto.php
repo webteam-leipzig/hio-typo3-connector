@@ -127,18 +127,8 @@ class ResearchInfrastructureDto
         $dto->setDynamicObjects($data['dynamicObjects'] ?? []);
         $dto->setKind($data['kind'] ?? '');
         $dto->setLanguage($data['language'] ?? '');
-
-        $orgUnits = [];
-        foreach ($data['orgUnits'] ?? [] as $orgUnit) {
-            $orgUnits[] = OrgUnitDto::fromArray($orgUnit);
-        }
-        $dto->setOrgUnits($orgUnits);
-
-        $publications = [];
-        foreach ($data['publications'] ?? [] as $publication) {
-            $publications[] = PublicationDto::fromArray($publication);
-        }
-        $dto->setPublications($publications);
+        $dto->setOrgUnits(array_map(fn($item) => OrgUnitDto::fromArray($item), $data['orgUnits'] ?? []));
+        $dto->setPublications(array_map(fn($item) => PublicationDto::fromArray($item), $data['publications'] ?? []));
         $dto->setTitle($data['title'] ?? '');
         $dto->setType($data['type'] ?? '');
         $dto->setVisibility($data['visibility'] ?? '');
