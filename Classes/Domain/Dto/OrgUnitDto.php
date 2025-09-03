@@ -112,47 +112,13 @@ class OrgUnitDto
 
         $dto->setTitle($data['name'] ?? '');
 
-        $doctoralPrograms = [];
-        foreach ($data['doctoralPrograms'] ?? [] as $doctoralProgram) {
-            $doctoralPrograms[] = DoctoralProgramDto::fromArray($doctoralProgram);
-        }
-        $dto->setDoctoralPrograms($doctoralPrograms);
-
-        $habilitations = [];
-        foreach ($data['habilitations'] ?? [] as $habilitation) {
-            $habilitations[] = HabilitationDto::fromArray($habilitation);
-        }
-        $dto->setHabilitations($habilitations);
-
-        $patents = [];
-        foreach ($data['patents'] ?? [] as $patent) {
-            $patents[] = PatentDto::fromArray($patent);
-        }
-        $dto->setPatents($patents);
-
-        $projects = [];
-        foreach ($data['projects'] ?? [] as $project) {
-            $projects[] = ProjectDto::fromArray($project);
-        }
-        $dto->setProjects($projects);
-
-        $publications = [];
-        foreach ($data['publications'] ?? [] as $publication) {
-            $publications[] = PublicationDto::fromArray($publication);
-        }
-        $dto->setPublications($publications);
-
-        $researchInfrastructures = [];
-        foreach ($data['researchInfrastructures'] ?? [] as $researchInfrastructure) {
-            $researchInfrastructures[] = ResearchInfrastructureDto::fromArray($researchInfrastructure);
-        }
-        $dto->setResearchInfrastructures($researchInfrastructures);
-
-        $spinOffs = [];
-        foreach ($data['spinOffs'] ?? [] as $spinOff) {
-            $spinOffs[] = SpinOffDto::fromArray($spinOff);
-        }
-        $dto->setSpinOffs($spinOffs);
+        $dto->setDoctoralPrograms(array_map(fn($item) => DoctoralProgramDto::fromArray($item), $data['doctoralPrograms'] ?? []));
+        $dto->setHabilitations(array_map(fn($item) => HabilitationDto::fromArray($item), $data['habilitations'] ?? []));
+        $dto->setPatents(array_map(fn($item) => PatentDto::fromArray($item), $data['patents'] ?? []));
+        $dto->setProjects(array_map(fn($item) => ProjectDto::fromArray($item), $data['projects'] ?? []));
+        $dto->setPublications(array_map(fn($item) => PublicationDto::fromArray($item), $data['publications'] ?? []));
+        $dto->setResearchInfrastructures(array_map(fn($item) => ResearchInfrastructureDto::fromArray($item), $data['researchInfrastructures'] ?? []));
+        $dto->setSpinOffs(array_map(fn($item) => SpinOffDto::fromArray($item), $data['spinOffs'] ?? []));
 
         return $dto;
     }
