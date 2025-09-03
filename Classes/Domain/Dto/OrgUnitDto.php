@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Wtl\HioTypo3Connector\Domain\Dto;
 
+use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\AddressDto;
 use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\DoctoralProgramDto;
 use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\HabilitationDto;
 use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\PatentDto;
@@ -20,6 +21,7 @@ class OrgUnitDto
     use WithDetails;
     use WithSearchIndex;
 
+    protected ?AddressDto $address = null;
     protected string $title = '';
 
     protected array $doctoralPrograms = [];
@@ -29,6 +31,15 @@ class OrgUnitDto
     protected array $publications = [];
     protected array $researchInfrastructures = [];
     protected array $spinOffs = [];
+
+    public function getAddress(): ?AddressDto
+    {
+        return $this->address;
+    }
+    public function setAddress(?AddressDto $address): void
+    {
+        $this->address = $address;
+    }
 
     public function getTitle(): string
     {
@@ -110,6 +121,7 @@ class OrgUnitDto
         $dto->setDetails($data);
         $dto->setSearchIndex($data);
 
+        $dto->setAddress(isset($data['address']) ? AddressDto::fromArray($data['address']) : null);
         $dto->setTitle($data['name'] ?? '');
 
         $dto->setDoctoralPrograms(array_map(fn($item) => DoctoralProgramDto::fromArray($item), $data['doctoralPrograms'] ?? []));
