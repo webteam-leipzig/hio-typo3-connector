@@ -4,8 +4,9 @@ declare(strict_types=1);
 namespace Wtl\HioTypo3Connector\Domain\Dto;
 
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use Wtl\HioTypo3Connector\Domain\Dto\Person\DoctoralProgramDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Person\AddressDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Person\AttributeDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Person\DoctoralProgramDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Person\HabilitationDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Person\OrgUnitDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Person\PatentDto;
@@ -23,9 +24,9 @@ class PersonDto
 
     protected string $name = '';
 
-    /*
-     * @var AttributeDto[]
-     */
+    //  @var AddressDto[]
+    protected array $addresses = [];
+    // @var AttributeDto[]
     protected array $attributes = [];
     protected array $doctoralPrograms = [];
     protected array $habilitations = [];
@@ -34,10 +35,21 @@ class PersonDto
     protected array $publications = [];
     protected array $orgUnits = [];
 
+    public function getAddresses(): array
+    {
+        return $this->addresses;
+    }
+
+    public function setAddresses(array $addresses): void
+    {
+        $this->addresses = $addresses;
+    }
+
     public function getAttributes(): array
     {
         return $this->attributes;
     }
+
     public function setAttributes(array $attributes): void
     {
         $this->attributes = $attributes;
@@ -47,6 +59,7 @@ class PersonDto
     {
         return $this->name;
     }
+
     public function setName(string $name): void
     {
         $this->name = $name;
@@ -66,6 +79,7 @@ class PersonDto
     {
         return $this->projects;
     }
+
     public function setProjects(array $projects): void
     {
         $this->projects = $projects;
@@ -75,6 +89,7 @@ class PersonDto
     {
         return $this->patents;
     }
+
     public function setPatents(array $patents): void
     {
         $this->patents = $patents;
@@ -84,6 +99,7 @@ class PersonDto
     {
         return $this->doctoralPrograms;
     }
+
     public function setDoctoralPrograms(array $doctoralPrograms): void
     {
         $this->doctoralPrograms = $doctoralPrograms;
@@ -93,6 +109,7 @@ class PersonDto
     {
         return $this->habilitations;
     }
+
     public function setHabilitations(array $habilitations): void
     {
         $this->habilitations = $habilitations;
@@ -102,6 +119,7 @@ class PersonDto
     {
         return $this->orgUnits;
     }
+
     public function setOrgUnits(array $orgUnits): void
     {
         $this->orgUnits = $orgUnits;
@@ -115,6 +133,7 @@ class PersonDto
         $dto->setDetails($data);
         $dto->setSearchIndex($data);
 
+        $dto->setAddresses(array_map(fn($item) => AddressDto::fromArray($item), $data['addresses'] ?? []));
         $dto->setAttributes(array_map(fn($item) => AttributeDto::fromArray($item), $data['attributes'] ?? []));
         $dto->setDoctoralPrograms(array_map(fn($item) => DoctoralProgramDto::fromArray($item), $data['doctoralPrograms'] ?? []));
         $dto->setHabilitations(array_map(fn($item) => HabilitationDto::fromArray($item), $data['habilitations'] ?? []));
