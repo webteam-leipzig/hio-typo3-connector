@@ -142,13 +142,13 @@ class OrgUnitDto
 
         $researchInfrastructures = [];
         foreach ($data['researchInfrastructures'] ?? [] as $researchInfrastructure) {
-            $researchInfrastructures[] = OrgUnitDto::fromArray($researchInfrastructure);
+            $researchInfrastructures[] = \Wtl\HioTypo3Connector\Domain\Dto\Collection\ResearchInfrastructureDto::fromArray($researchInfrastructure);
         }
         $dto->setResearchInfrastructures($researchInfrastructures);
 
         $spinOffs = [];
         foreach ($data['spinOffs'] ?? [] as $spinOff) {
-            $spinOffs[] = OrgUnitDto::fromArray($spinOff);
+            $spinOffs[] = \Wtl\HioTypo3Connector\Domain\Dto\Collection\SpinOffDto::fromArray($spinOff);
         }
         $dto->setSpinOffs($spinOffs);
 

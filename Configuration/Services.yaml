@@ -199,3 +199,11 @@ services:
     tags:
       - name: event.listener
         identifier: 'attachHioOrgUnitToHioPublicationsListener'
+  Wtl\HioTypo3Connector\EventListener\AttachHioOrgUnitToHioResearchInfrastructuresListener:
+    tags:
+      - name: event.listener
+        identifier: 'attachHioOrgUnitToHioResearchInfrastructuresListener'
+  Wtl\HioTypo3Connector\EventListener\AttachHioOrgUnitToHioSpinOffsListener:
+    tags:
+      - name: event.listener
+        identifier: 'attachHioOrgUnitToHioSpinOffsListener'

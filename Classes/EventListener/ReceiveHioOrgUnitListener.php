@@ -12,6 +12,8 @@ use Wtl\HioTypo3Connector\Event\AttachHioOrgUnitToHioHabilitationsEvent;
 use Wtl\HioTypo3Connector\Event\AttachHioOrgUnitToHioPatentsEvent;
 use Wtl\HioTypo3Connector\Event\AttachHioOrgUnitToHioProjectsEvent;
 use Wtl\HioTypo3Connector\Event\AttachHioOrgUnitToHioPublicationsEvent;
+use Wtl\HioTypo3Connector\Event\AttachHioOrgUnitToHioResearchInfrastructuresEvent;
+use Wtl\HioTypo3Connector\Event\AttachHioOrgUnitToHioSpinOffsEvent;
 use Wtl\HioTypo3Connector\Event\ReceiveHioOrgUnitEvent;
 
 class ReceiveHioOrgUnitListener
@@ -32,6 +34,8 @@ class ReceiveHioOrgUnitListener
         $this->attachRelatedPatents($event->getHioOrgUnit());
         $this->attachRelatedProjects($event->getHioOrgUnit());
         $this->attachRelatedPublications($event->getHioOrgUnit());
+        $this->attachRelatedResearchInfrastructures($event->getHioOrgUnit());
+        $this->attachRelatedSpinOffs($event->getHioOrgUnit());
     }
 
     protected function attachRelatedDoctoralPrograms(OrgUnitDto $hioOrgUnitDto): void
@@ -105,6 +109,36 @@ class ReceiveHioOrgUnitListener
             new AttachHioOrgUnitToHioPublicationsEvent(
                 $hioOrgUnitDto->getObjectId(),
                 $publicationObjectIds
+            )
+        );
+    }
+
+    protected function attachRelatedResearchInfrastructures(OrgUnitDto $hioOrgUnitDto): void
+    {
+        $researchInfrastructureObjectIds  = array_map(
+            static fn($hioResearchInfrastructure) => $hioResearchInfrastructure->getId(),
+            $hioOrgUnitDto->getResearchInfrastructures() ?? []
+        );
+
+        $this->eventDispatcher->dispatch(
+            new AttachHioOrgUnitToHioResearchInfrastructuresEvent(
+                $hioOrgUnitDto->getObjectId(),
+                $researchInfrastructureObjectIds
+            )
+        );
+    }
+
+    protected function attachRelatedSpinOffs(OrgUnitDto $hioOrgUnitDto): void
+    {
+        $spinOffObjectIds  = array_map(
+            static fn($hioSpinOff) => $hioSpinOff->getId(),
+            $hioOrgUnitDto->getSpinOffs() ?? []
+        );
+
+        $this->eventDispatcher->dispatch(
+            new AttachHioOrgUnitToHioSpinOffsEvent(
+                $hioOrgUnitDto->getObjectId(),
+                $spinOffObjectIds
             )
         );
     }
