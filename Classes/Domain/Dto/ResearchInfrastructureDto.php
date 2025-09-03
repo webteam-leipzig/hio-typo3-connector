@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace Wtl\HioTypo3Connector\Domain\Dto;
 
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use Wtl\HioTypo3Connector\Domain\Dto\Collection\PersonOrgUnitDto;
-use Wtl\HioTypo3Connector\Domain\Dto\Collection\PublicationDto;
+use Wtl\HioTypo3Connector\Domain\Dto\ResearchInfrastructure\OrgUnitDto;
+use Wtl\HioTypo3Connector\Domain\Dto\ResearchInfrastructure\PublicationDto;
 use Wtl\HioTypo3Connector\Trait\WithDetails;
 use Wtl\HioTypo3Connector\Trait\WithObjectId;
 use Wtl\HioTypo3Connector\Trait\WithSearchIndex;
@@ -22,6 +22,7 @@ class ResearchInfrastructureDto
     protected string $language = '';
     protected array $orgUnits = [];
     protected array $publications = [];
+
     protected string $title = '';
     protected string $type = '';
     protected string $visibility = '';
@@ -129,7 +130,7 @@ class ResearchInfrastructureDto
 
         $orgUnits = [];
         foreach ($data['orgUnits'] ?? [] as $orgUnit) {
-            $orgUnits[] = PersonOrgUnitDto::fromArray($orgUnit);
+            $orgUnits[] = OrgUnitDto::fromArray($orgUnit);
         }
         $dto->setOrgUnits($orgUnits);
 

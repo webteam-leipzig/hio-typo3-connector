@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace Wtl\HioTypo3Connector\Domain\Dto;
 
-use Wtl\HioTypo3Connector\Domain\Dto\Collection\DoctoralProgramDto;
-use Wtl\HioTypo3Connector\Domain\Dto\Collection\HabilitationDto;
-use Wtl\HioTypo3Connector\Domain\Dto\Collection\PatentDto;
-use Wtl\HioTypo3Connector\Domain\Dto\Collection\ProjectDto;
-use Wtl\HioTypo3Connector\Domain\Dto\Collection\PublicationDto;
+use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\DoctoralProgramDto;
+use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\HabilitationDto;
+use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\PatentDto;
+use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\ProjectDto;
+use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\PublicationDto;
+use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\ResearchInfrastructureDto;
+use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\SpinOffDto;
 use Wtl\HioTypo3Connector\Trait\WithDetails;
 use Wtl\HioTypo3Connector\Trait\WithObjectId;
 use Wtl\HioTypo3Connector\Trait\WithSearchIndex;
@@ -142,13 +144,13 @@ class OrgUnitDto
 
         $researchInfrastructures = [];
         foreach ($data['researchInfrastructures'] ?? [] as $researchInfrastructure) {
-            $researchInfrastructures[] = \Wtl\HioTypo3Connector\Domain\Dto\Collection\ResearchInfrastructureDto::fromArray($researchInfrastructure);
+            $researchInfrastructures[] = ResearchInfrastructureDto::fromArray($researchInfrastructure);
         }
         $dto->setResearchInfrastructures($researchInfrastructures);
 
         $spinOffs = [];
         foreach ($data['spinOffs'] ?? [] as $spinOff) {
-            $spinOffs[] = \Wtl\HioTypo3Connector\Domain\Dto\Collection\SpinOffDto::fromArray($spinOff);
+            $spinOffs[] = SpinOffDto::fromArray($spinOff);
         }
         $dto->setSpinOffs($spinOffs);
 

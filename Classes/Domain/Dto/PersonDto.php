@@ -4,12 +4,12 @@ declare(strict_types=1);
 namespace Wtl\HioTypo3Connector\Domain\Dto;
 
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use Wtl\HioTypo3Connector\Domain\Dto\Collection\DoctoralProgramDto;
-use Wtl\HioTypo3Connector\Domain\Dto\Collection\HabilitationDto;
-use Wtl\HioTypo3Connector\Domain\Dto\Collection\PersonOrgUnitDto;
-use Wtl\HioTypo3Connector\Domain\Dto\Collection\PatentDto;
-use Wtl\HioTypo3Connector\Domain\Dto\Collection\ProjectDto;
-use Wtl\HioTypo3Connector\Domain\Dto\Collection\PublicationDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Person\DoctoralProgramDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Person\HabilitationDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Person\OrgUnitDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Person\PatentDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Person\ProjectDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Person\PublicationDto;
 use Wtl\HioTypo3Connector\Trait\WithDetails;
 use Wtl\HioTypo3Connector\Trait\WithObjectId;
 use Wtl\HioTypo3Connector\Trait\WithSearchIndex;
@@ -115,7 +115,7 @@ class PersonDto
 
         $orgUnits = [];
         foreach ($data['orgUnits'] ?? [] as $orgUnit) {
-            $orgUnits[] = PersonOrgUnitDto::fromArray($orgUnit);
+            $orgUnits[] = OrgUnitDto::fromArray($orgUnit);
         }
         $dto->setOrgUnits($orgUnits);
 
