@@ -5,12 +5,12 @@ namespace Wtl\HioTypo3Connector\Domain\Dto\Person;
 
 class OrgUnitDto
 {
+    protected string $affiliation = '';
     protected int $id;
     protected string $name = '';
-    protected string $role = '';
     protected ?\DateTime $validFrom = null;
     protected ?\DateTime $validTo = null;
-    protected string $visibilityValueId = '';
+    protected string $visibility = '';
 
     public function getId(): int
     {
@@ -30,13 +30,13 @@ class OrgUnitDto
         $this->name = $name;
     }
 
-    public function getRole(): string
+    public function getAffiliation(): string
     {
-        return $this->role;
+        return $this->affiliation;
     }
-    public function setRole(string $role): void
+    public function setAffiliation(string $affiliation): void
     {
-        $this->role = $role;
+        $this->affiliation = $affiliation;
     }
 
     public function getValidFrom(): ?\DateTime
@@ -57,13 +57,13 @@ class OrgUnitDto
         $this->validTo = $validTo;
     }
 
-    public function getVisibilityValueId(): string
+    public function getVisibility(): string
     {
-        return $this->visibilityValueId;
+        return $this->visibility;
     }
-    public function setVisibilityValueId(string $visibilityValueId): void
+    public function setVisibility(string $visibility): void
     {
-        $this->visibilityValueId = $visibilityValueId;
+        $this->visibility = $visibility;
     }
 
     static public function fromArray(array $data): self
@@ -74,10 +74,10 @@ class OrgUnitDto
         $dto = new self();
         $dto->setId($data['id']);
         $dto->setName($data['name'] ?? '');
-        $dto->setRole($data['role'] ?? '');
+        $dto->setAffiliation($data['affiliation'] ?? '');
         $dto->setValidFrom(isset($data['validFrom']) ? new \DateTime($data['validFrom']) : null);
         $dto->setValidTo(isset($data['validTo']) ? new \DateTime($data['validTo']) : null);
-        $dto->setVisibilityValueId($data['visibilityValueId'] ?? '');
+        $dto->setVisibility($data['visibility'] ?? '');
 
         return $dto;
     }
