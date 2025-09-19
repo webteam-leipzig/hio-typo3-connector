@@ -30,6 +30,11 @@ class Project extends AbstractEntity
      */
     protected mixed $searchIndex;
 
+    /**
+     * @var string
+     */
+    protected mixed $schemaOrg;
+
     public function getObjectId(): int
     {
         return $this->objectId;
@@ -97,5 +102,31 @@ class Project extends AbstractEntity
         $this->searchIndex = $searchIndex;
 
         return $this;
+    }
+
+    public function getSchemaOrg()
+    {
+        return json_decode($this->schemaOrg, true);
+    }
+
+    public function setSchemaOrg(array $schemaOrg)
+    {
+        $this->schemaOrg = json_encode($schemaOrg);
+        return $this;
+    }
+
+    public function updateSchemaOrg()
+    {
+        $schema = [
+            '@context' => 'https://schema.org',
+            '@type' => 'ResearchProject',
+            'name' => $this->getTitle(),
+            'description' => $this->getDetails()['abstract'] ?? '',
+        ];
+
+        if (!empty($this->getDetails()['keywords'])) {
+            $schema['keywords'] = implode(', ', $this->getDetails()['keywords']);
+        }
+        return $this->setSchemaOrg($schema);
     }
 }
