@@ -25,6 +25,7 @@ class ProjectRepository extends BaseRepository
             $projectModel->setStatus($projectDto->getStatus());
             $projectModel->setTitle($projectDto->getTitle());
             $projectModel->setType($projectDto->getType());
+            $projectModel->setSchemaOrg($projectDto->getSchemaOrg());
             $this->add($projectModel);
         } else {
             $projectModel->setObjectId($projectDto->getObjectId());
@@ -36,6 +37,7 @@ class ProjectRepository extends BaseRepository
             $projectModel->setStatus($projectDto->getStatus());
             $projectModel->setTitle($projectDto->getTitle());
             $projectModel->setType($projectDto->getType());
+            $projectModel->setSchemaOrg($projectDto->getSchemaOrg());
             $this->update($projectModel);
         }
 
