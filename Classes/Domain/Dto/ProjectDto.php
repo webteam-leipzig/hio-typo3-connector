@@ -5,7 +5,6 @@ namespace Wtl\HioTypo3Connector\Domain\Dto;
 
 use Wtl\HioTypo3Connector\Domain\Dto\Project\FundingProgramDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Project\PersonDto;
-use Wtl\HioTypo3Connector\Domain\Dto\Project\ResearchAreaDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Project\SubjectAreaDto;
 use Wtl\HioTypo3Connector\Trait\WithDetails;
 use Wtl\HioTypo3Connector\Trait\WithObjectId;
@@ -41,6 +40,7 @@ class ProjectDto
      * @var string[]
      */
     protected array $researchAreasKdsf = [];
+    protected array $schemaOrg = [];
     protected string $shorttext = '';
     protected ?\DateTime $startDate = null;
     /**
@@ -153,6 +153,16 @@ class ProjectDto
         $this->endDate = $endDate;
     }
 
+    public function getSchemaOrg(): array
+    {
+        return $this->schemaOrg;
+    }
+
+    public function setSchemaOrg(array $schema): void
+    {
+        $this->schemaOrg = $schema;
+    }
+
     public function getSubjectAreas(): array
     {
         return $this->subjectAreas;
@@ -225,6 +235,7 @@ class ProjectDto
         }
         $project->setResearchAreas($data['researchAreas'] ?? []);
         $project->setResearchAreasKdsf($data['researchAreasKdsf'] ?? []);
+        $project->setSchemaOrg(self::createSchemaOrg($data));
         $project->setShorttext($data['shorttext'] ?? '');
         $project->setStatus($data['status'] ?? '');
         $project->setTitle($data['title'] ?? '');
@@ -241,4 +252,20 @@ class ProjectDto
         $project->setPersons($members ?? []);
         return $project;
     }
+
+    static protected function createSchemaOrg(array $data): array
+    {
+        $schema = [
+            '@context' => 'https://schema.org',
+            '@type' => 'ResearchProject',
+            'name' => $data['title'] ?? '',
+            'description' => $data['abstract'] ?? '',
+        ];
+
+        if (!empty($data['keywords'])) {
+            $schema['keywords'] = $data['keywords'] ?? [];
+        }
+        return $schema;
+    }
+
 }

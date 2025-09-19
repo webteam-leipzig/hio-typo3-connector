@@ -10,6 +10,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use Wtl\HioTypo3Connector\Domain\Dto\ProjectDto;
 use Wtl\HioTypo3Connector\Event\ReceiveHioProjectEvent;
 use Wtl\HioTypo3Connector\Services\HioProjectService;
 use Wtl\HioTypo3Connector\Trait\WithConfigureImportCommandTrait;

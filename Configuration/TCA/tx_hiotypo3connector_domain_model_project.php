@@ -136,6 +136,13 @@ return [
                 'notnull' => false,
             ],
         ],
+        'schema_org' => [
+            'label' => 'Schema.org',
+            'config' => [
+                'type' => Types::JSON,
+                'notnull' => false,
+            ],
+        ],
     ],
     'types' => [
         0 => [

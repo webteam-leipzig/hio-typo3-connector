@@ -4,6 +4,7 @@ CREATE TABLE tx_hiotypo3connector_domain_model_project
     title        LONGTEXT     DEFAULT '',
     details      MEDIUMBLOB,
     search_index MEDIUMBLOB,
+    schema_org  MEDIUMBLOB,
     status         VARCHAR(255) DEFAULT '',
     type         VARCHAR(255) DEFAULT '',
     start_date   DATETIME  DEFAULT NULL,

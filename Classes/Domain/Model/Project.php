@@ -25,15 +25,21 @@ class Project extends AbstractEntity
      */
     protected mixed $details;
 
-     /**
+    /**
      * @var string
      */
     protected mixed $searchIndex;
+
+    /**
+     * @var string
+     */
+    protected mixed $schemaOrg;
 
     public function getObjectId(): int
     {
         return $this->objectId;
     }
+
     public function setObjectId($objectId): void
     {
         $this->objectId = $objectId;
@@ -43,6 +49,7 @@ class Project extends AbstractEntity
     {
         return $this->status;
     }
+
     public function setStatus($status): void
     {
         $this->status = $status;
@@ -52,6 +59,7 @@ class Project extends AbstractEntity
     {
         return $this->title;
     }
+
     public function setTitle($title): void
     {
         $this->title = $title;
@@ -61,6 +69,7 @@ class Project extends AbstractEntity
     {
         return $this->type;
     }
+
     public function setType($type): void
     {
         $this->type = $type;
@@ -70,6 +79,7 @@ class Project extends AbstractEntity
     {
         return json_decode($this->details, true);
     }
+
     public function setDetails($details): void
     {
         $this->details = json_encode($details);
@@ -88,7 +98,7 @@ class Project extends AbstractEntity
     /**
      * Set the value of searchIndex
      *
-     * @param  string  $searchIndex
+     * @param string $searchIndex
      *
      * @return  self
      */
@@ -97,5 +107,15 @@ class Project extends AbstractEntity
         $this->searchIndex = $searchIndex;
 
         return $this;
+    }
+
+    public function getSchemaOrg(): mixed
+    {
+        return json_decode($this->schemaOrg, true);
+    }
+
+    public function setSchemaOrg(array $schemaOrg): void
+    {
+        $this->schemaOrg = json_encode($schemaOrg);
     }
 }
