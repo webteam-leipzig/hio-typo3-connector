@@ -18,6 +18,8 @@ use Wtl\HioTypo3Connector\Domain\Repository\PublicationRepository;
 #[AsController]
 class PublicationController extends BaseController
 {
+    use ExtractsOrderStatementsTrait;
+    
     protected int $pageUid;
 
     public function __construct(
@@ -48,16 +50,13 @@ class PublicationController extends BaseController
                 ]
             );
         }
-        $orderBy = $this->settings['orderBy'] ?? '';
-        $publications = [];
-        if ($orderBy !== '') {
-            [$propertyName, $order] = explode(':', $orderBy);
-            if (in_array($propertyName, ['title', 'type', 'releaseYear'])) {
-                $publications = $this->publicationRepository->findByFilter($filter, [$propertyName => $order]);
-            }
-        } else {
-            $publications = $this->publicationRepository->findByFilter($filter);
-        }
+        
+        // get order settings from plugin configuration
+        $orderings = $this->getOrderingFromProperty('orderBy');
+        $orderings = array_merge($orderings, $this->getOrderingFromProperty('addOrderBy'));
+        
+        $publications = $this->publicationRepository->findByFilter($filter, $orderings);
+
         $paginator = $this->getPaginator(
             $publications,
         );

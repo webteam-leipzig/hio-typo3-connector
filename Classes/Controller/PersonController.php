@@ -26,6 +26,8 @@ use Wtl\HioTypo3Connector\Services\Statistics\PersonStats;
 #[AsController]
 class PersonController extends BaseController
 {
+    use ExtractsOrderStatementsTrait;
+    
     protected int $pageUid;
 
     public function __construct(
@@ -60,7 +62,6 @@ class PersonController extends BaseController
             );
         }
 
-//        var_dump($filter);exit();
         $paginator = $this->getPaginator(
             $this->personRepository->findByFilter($filter),
         );
@@ -130,11 +131,13 @@ class PersonController extends BaseController
 
         if ($selectedPerson) {
             $publications = $selectedPerson->getPublications() ?? [];
-            if ($orderBy !== '') {
-                [$propertyName, $order] = explode(':', $orderBy);
-                if (in_array($propertyName, ['title', 'type', 'releaseYear'])) {
-                    $publications = $this->publicationRepository->getPublicationsByPerson($selectedPerson, [$propertyName => $order]);
-                }
+            
+            // get order settings from plugin configuration
+            $orderings = $this->getOrderingFromProperty('orderBy');
+            $orderings = array_merge($orderings, $this->getOrderingFromProperty('addOrderBy'));
+            
+            if ($orderings !== []) {
+                $publications = $this->publicationRepository->getPublicationsByPerson($selectedPerson, $orderings);
             }
 
             $groupBy = $this->settings['groupBy'] ?? '';
