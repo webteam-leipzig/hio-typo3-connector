@@ -9,7 +9,6 @@ use Psr\Log\LoggerInterface;
 use TYPO3\CMS\Backend\Attribute\AsController;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Pagination\SlidingWindowPagination;
-use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Property\PropertyMapper;
 use Wtl\HioTypo3Connector\Domain\Dto\Filter\PublicationFilter;
 use Wtl\HioTypo3Connector\Domain\Model\Publication;
@@ -18,8 +17,6 @@ use Wtl\HioTypo3Connector\Domain\Repository\PublicationRepository;
 #[AsController]
 class PublicationController extends BaseController
 {
-    use ExtractsOrderStatementsTrait;
-    
     protected int $pageUid;
 
     public function __construct(
@@ -52,8 +49,8 @@ class PublicationController extends BaseController
         }
         
         // get order settings from plugin configuration
-        $orderings = $this->getOrderingFromProperty('orderBy');
-        $orderings = array_merge($orderings, $this->getOrderingFromProperty('addOrderBy'));
+        $orderings = $this->getPublicationOrderingFromProperty('orderBy');
+        $orderings = array_merge($orderings, $this->getPublicationOrderingFromProperty('addOrderBy'));
         
         $publications = $this->publicationRepository->findByFilter($filter, $orderings);
 

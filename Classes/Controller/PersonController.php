@@ -13,7 +13,6 @@ use TYPO3\CMS\Core\Http\ImmediateResponseException;
 use TYPO3\CMS\Core\Pagination\SlidingWindowPagination;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
-use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Property\PropertyMapper;
 use TYPO3\CMS\Frontend\Controller\ErrorController;
 use Wtl\HioTypo3Connector\Domain\Dto\Filter\FilterDto;
@@ -26,8 +25,6 @@ use Wtl\HioTypo3Connector\Services\Statistics\PersonStats;
 #[AsController]
 class PersonController extends BaseController
 {
-    use ExtractsOrderStatementsTrait;
-    
     protected int $pageUid;
 
     public function __construct(
@@ -133,8 +130,8 @@ class PersonController extends BaseController
             $publications = $selectedPerson->getPublications() ?? [];
             
             // get order settings from plugin configuration
-            $orderings = $this->getOrderingFromProperty('orderBy');
-            $orderings = array_merge($orderings, $this->getOrderingFromProperty('addOrderBy'));
+            $orderings = $this->getPublicationOrderingFromProperty('orderBy');
+            $orderings = array_merge($orderings, $this->getPublicationOrderingFromProperty('addOrderBy'));
             
             if ($orderings !== []) {
                 $publications = $this->publicationRepository->getPublicationsByPerson($selectedPerson, $orderings);
