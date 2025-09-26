@@ -16,14 +16,14 @@ class PersonRepository extends BaseRepository
             $personModel->setObjectId($personDto->getObjectId());
             $personModel->setDetails(json_encode($personDto->getDetails()));
             $personModel->setSearchIndex($personDto->getSearchIndex());
-            $personModel->setName($personDto->getName()->getDisplayName());
+            $personModel->setName($personDto->getName());
             $personModel->setPid($storagePageId);
             $this->add($personModel);
         } else {
             $personModel->setObjectId($personDto->getObjectId());
             $personModel->setDetails(json_encode($personDto->getDetails()));
             $personModel->setSearchIndex($personDto->getSearchIndex());
-            $personModel->setName($personDto->getName()->getDisplayName());
+            $personModel->setName($personDto->getName());
             $this->update($personModel);
         }
         $this->persistenceManager->persistAll();

@@ -8,7 +8,6 @@ use Wtl\HioTypo3Connector\Domain\Dto\Person\AddressDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Person\AttributeDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Person\DoctoralProgramDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Person\HabilitationDto;
-use Wtl\HioTypo3Connector\Domain\Dto\Person\NameDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Person\OrgUnitDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Person\PatentDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Person\ProjectDto;
@@ -23,7 +22,7 @@ class PersonDto
     use WithDetails;
     use WithSearchIndex;
 
-    protected ?NameDto $name = null;
+    protected string $name;
 
     //  @var AddressDto[]
     protected array $addresses = [];
@@ -56,12 +55,12 @@ class PersonDto
         $this->attributes = $attributes;
     }
 
-    public function getName(): NameDto
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function setName(NameDto $name): void
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -130,7 +129,7 @@ class PersonDto
     {
         $dto = new self();
         $dto->setObjectId($data['id']);
-        $dto->setName(NameDto::fromArray($data['name']));
+        $dto->setName($data['name']['displayName'] ?? '');
         $dto->setDetails($data);
         $dto->setSearchIndex($data);
 
