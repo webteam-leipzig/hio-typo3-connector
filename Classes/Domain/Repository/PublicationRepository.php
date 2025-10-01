@@ -7,6 +7,7 @@ use Psr\Log\LoggerInterface;
 use Wtl\HioTypo3Connector\Domain\Dto\Filter\FilterDto as FilterDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Filter\PublicationFilter;
 use Wtl\HioTypo3Connector\Domain\Dto\PublicationDto;
+use Wtl\HioTypo3Connector\Domain\Model\OrgUnit;
 use Wtl\HioTypo3Connector\Domain\Model\Person;
 use Wtl\HioTypo3Connector\Domain\Model\Publication;
 
