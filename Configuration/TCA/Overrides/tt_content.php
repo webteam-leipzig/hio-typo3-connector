@@ -60,6 +60,7 @@ ExtensionUtility::registerPlugin(
     'tx-hio_typo3_connector-list-of-spin-offs',
 );
 
+
 ExtensionUtility::registerPlugin(
     'HioTypo3Connector',
     'Selectedpersonhabilitationlist',
@@ -98,12 +99,21 @@ ExtensionUtility::registerPlugin(
     'tx-hio_typo3_connector-publications',
 );
 
+ExtensionUtility::registerPlugin(
+    'HioTypo3Connector',
+    'Selectedorgunitpublicationlist',
+    'LLL:EXT:hio_typo3_connector/Resources/Private/Language/selectedOrgUnit.xlf:titleOrgUnitPublications',
+    'tx-hio_typo3_connector-publications',
+);
+
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['hiotypo3connector_selectedpersondoctoralprogramlist'] = 'pi_flexform';
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['hiotypo3connector_selectedpersonhabilitationlist'] = 'pi_flexform';
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['hiotypo3connector_selectedpersonorgunitlist'] = 'pi_flexform';
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['hiotypo3connector_selectedpersonpatentlist'] = 'pi_flexform';
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['hiotypo3connector_selectedpersonprojectlist'] = 'pi_flexform';
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['hiotypo3connector_selectedpersonpublicationlist'] = 'pi_flexform';
+
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['hiotypo3connector_selectedorgunitpublicationlist'] = 'pi_flexform';
 
 // Configuration/TCA/Overrides/tt_content.php
 ExtensionManagementUtility::addPiFlexFormValue(
@@ -131,6 +141,13 @@ ExtensionManagementUtility::addPiFlexFormValue(
     'FILE:EXT:hio_typo3_connector/Configuration/FlexForm/SelectedPersonHabilitationList.xml',
 );
 
+
+ExtensionManagementUtility::addPiFlexFormValue(
+    'hiotypo3connector_selectedorgunitpublicationlist',
+    'FILE:EXT:hio_typo3_connector/Configuration/FlexForm/SelectedOrgUnitPublicationList.xml',
+);
+
+
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['hiotypo3connector_publicationlist'] = 'pi_flexform';
 ExtensionManagementUtility::addPiFlexFormValue(
     'hiotypo3connector_publicationlist',
@@ -141,6 +158,7 @@ ExtensionManagementUtility::addPiFlexFormValue(
     'hiotypo3connector_personlist',
     'FILE:EXT:hio_typo3_connector/Configuration/FlexForm/PersonList.xml',
 );
+
 
 ExtensionUtility::registerPlugin(
     'HioTypo3Connector',
