@@ -194,3 +194,12 @@ ExtensionUtility::configurePlugin(
     [OrgUnitController::class => 'publicationList'],
 // non-cacheable actions
 );
+ExtensionUtility::configurePlugin(
+// extension name, matching the PHP namespaces (but without the vendor)
+    'HioTypo3Connector',
+    // arbitrary, but unique plugin name (not visible in the backend)
+    'SelectedOrgUnitProjectList',
+    // all actions
+    [OrgUnitController::class => 'projectList'],
+// non-cacheable actions
+);

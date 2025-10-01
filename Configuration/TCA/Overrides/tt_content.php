@@ -105,6 +105,12 @@ ExtensionUtility::registerPlugin(
     'LLL:EXT:hio_typo3_connector/Resources/Private/Language/selectedOrgUnit.xlf:titleOrgUnitPublications',
     'tx-hio_typo3_connector-publications',
 );
+ExtensionUtility::registerPlugin(
+    'HioTypo3Connector',
+    'Selectedorgunitprojectlist',
+    'LLL:EXT:hio_typo3_connector/Resources/Private/Language/selectedOrgUnit.xlf:titleOrgUnitProjects',
+    'tx-hio_typo3_connector-projects',
+);
 
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['hiotypo3connector_selectedpersondoctoralprogramlist'] = 'pi_flexform';
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['hiotypo3connector_selectedpersonhabilitationlist'] = 'pi_flexform';
@@ -114,6 +120,7 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['hiotypo3conn
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['hiotypo3connector_selectedpersonpublicationlist'] = 'pi_flexform';
 
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['hiotypo3connector_selectedorgunitpublicationlist'] = 'pi_flexform';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['hiotypo3connector_selectedorgunitprojectlist'] = 'pi_flexform';
 
 // Configuration/TCA/Overrides/tt_content.php
 ExtensionManagementUtility::addPiFlexFormValue(
@@ -145,6 +152,10 @@ ExtensionManagementUtility::addPiFlexFormValue(
 ExtensionManagementUtility::addPiFlexFormValue(
     'hiotypo3connector_selectedorgunitpublicationlist',
     'FILE:EXT:hio_typo3_connector/Configuration/FlexForm/SelectedOrgUnitPublicationList.xml',
+);
+ExtensionManagementUtility::addPiFlexFormValue(
+    'hiotypo3connector_selectedorgunitprojectlist',
+    'FILE:EXT:hio_typo3_connector/Configuration/FlexForm/SelectedOrgUnitProjectList.xml',
 );
 
 

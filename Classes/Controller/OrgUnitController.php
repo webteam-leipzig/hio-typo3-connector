@@ -14,9 +14,11 @@ use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Property\PropertyMapper;
 use Wtl\HioTypo3Connector\Domain\Dto\Filter\FilterDto;
 use Wtl\HioTypo3Connector\Domain\Model\OrgUnit;
+use Wtl\HioTypo3Connector\Domain\Model\Person;
 use Wtl\HioTypo3Connector\Domain\Repository\CitationStyleRepository;
 use Wtl\HioTypo3Connector\Domain\Repository\OrgUnitRepository;
 use Wtl\HioTypo3Connector\Domain\Repository\PublicationRepository;
+use Wtl\HioTypo3Connector\Services\Statistics\OrgUnitStats;
 
 #[AsController]
 class OrgUnitController extends BaseController
@@ -30,6 +32,7 @@ class OrgUnitController extends BaseController
         protected readonly CitationStyleRepository $citationStyleRepository,
         protected readonly PropertyMapper $propertyMapper,
         protected readonly LoggerInterface $logger,
+        protected readonly OrgUnitStats $orgUnitStatsService,
     )
     {}
 
@@ -158,4 +161,18 @@ class OrgUnitController extends BaseController
 
         return $this->htmlResponse();
     }
+
+    public function projectListAction(): ResponseInterface
+    {
+        /** @var Person $selectedOrgUnit */
+        $selectedOrgUnit = $this->orgUnitRepository->findByUid($this->settings['orgUnitUid']);
+
+        $this->view->assignMultiple([
+            'orgUnit' => $selectedOrgUnit,
+            'projectStatusStatistics' => $this->orgUnitStatsService->getProjectCountByStatus($selectedOrgUnit) ?? [],
+        ]);
+
+        return $this->htmlResponse();
+    }
+
 }
