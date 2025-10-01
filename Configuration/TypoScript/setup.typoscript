@@ -21,8 +21,10 @@ plugin.tx_hiotypo3connector {
     }
     orgUnits {
       personTargetPageUid = {$plugin.tx_hiotypo3connector.settings.orgunits.personTargetPageUid}
-      projectTargetPageUid = {$plugin.tx_hiotypo3connector.settings.persons.projectTargetPageUid}
-      publicationTargetPageUid = {$plugin.tx_hiotypo3connector.settings.persons.publicationTargetPageUid}
+      projectTargetPageUid = {$plugin.tx_hiotypo3connector.settings.orgunits.projectTargetPageUid}
+      publicationTargetPageUid = {$plugin.tx_hiotypo3connector.settings.orgunits.publicationTargetPageUid}
+      patentTargetPageUid = {$plugin.tx_hiotypo3connector.settings.orgunits.patentTargetPageUid}
+      doctoralProgramTargetPageUid = {$plugin.tx_hiotypo3connector.settings.orgunits.doctoralProgramTargetPageUid}
     }
     patents {
       personTargetPageUid = {$plugin.tx_hiotypo3connector.settings.patents.personTargetPageUid}

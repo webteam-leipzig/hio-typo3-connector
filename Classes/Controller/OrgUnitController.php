@@ -164,7 +164,7 @@ class OrgUnitController extends BaseController
 
     public function projectListAction(): ResponseInterface
     {
-        /** @var Person $selectedOrgUnit */
+        /** @var OrgUnit $selectedOrgUnit */
         $selectedOrgUnit = $this->orgUnitRepository->findByUid($this->settings['orgUnitUid']);
 
         $this->view->assignMultiple([
@@ -175,4 +175,15 @@ class OrgUnitController extends BaseController
         return $this->htmlResponse();
     }
 
+    public function patentListAction(): ResponseInterface
+    {
+        /** @var OrgUnit $selectedOrgUnit */
+        $selectedOrgUnit = $this->orgUnitRepository->findByUid($this->settings['orgUnitUid']);
+
+        $this->view->assignMultiple([
+            'orgUnit' => $selectedOrgUnit,
+        ]);
+
+        return $this->htmlResponse();
+    }
 }
