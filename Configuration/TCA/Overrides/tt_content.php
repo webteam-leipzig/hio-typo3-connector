@@ -107,7 +107,7 @@ ExtensionUtility::registerPlugin(
 );
 ExtensionUtility::registerPlugin(
     'HioTypo3Connector',
-    'Selectedorgunitprojectlist',
+    'SelectedOrgUnitProjectList',
     'LLL:EXT:hio_typo3_connector/Resources/Private/Language/selectedOrgUnit.xlf:titleOrgUnitProjects',
     'tx-hio_typo3_connector-projects',
 );
