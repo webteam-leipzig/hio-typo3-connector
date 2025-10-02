@@ -101,7 +101,7 @@ ExtensionUtility::registerPlugin(
 
 ExtensionUtility::registerPlugin(
     'HioTypo3Connector',
-    'Selectedorgunitpublicationlist',
+    'SelectedOrgUnitPublicationList',
     'LLL:EXT:hio_typo3_connector/Resources/Private/Language/selectedOrgUnit.xlf:titleOrgUnitPublications',
     'tx-hio_typo3_connector-publications',
 );
