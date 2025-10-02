@@ -113,7 +113,7 @@ ExtensionUtility::registerPlugin(
 );
 ExtensionUtility::registerPlugin(
     'HioTypo3Connector',
-    'Selectedorgunitpatentlist',
+    'SelectedOrgUnitPatentList',
     'LLL:EXT:hio_typo3_connector/Resources/Private/Language/selectedOrgUnit.xlf:titleOrgUnitPatents',
     'tx-hio_typo3_connector-patents',
 );
