@@ -184,3 +184,22 @@ ExtensionUtility::configurePlugin(
 // non-cacheable actions
 );
 
+
+ExtensionUtility::configurePlugin(
+    'HioTypo3Connector',
+    'SelectedOrgUnitPublicationList',
+    [OrgUnitController::class => 'publicationList'],
+    []
+);
+ExtensionUtility::configurePlugin(
+    'HioTypo3Connector',
+    'SelectedOrgUnitProjectList',
+    [OrgUnitController::class => 'projectList'],
+    []
+);
+ExtensionUtility::configurePlugin(
+    'HioTypo3Connector',
+    'SelectedOrgUnitPatentList',
+    [OrgUnitController::class => 'patentList'],
+    []
+);
