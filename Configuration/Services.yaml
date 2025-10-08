@@ -191,6 +191,10 @@ services:
     tags:
       - name: event.listener
         identifier: 'attachHioOrgUnitToHioPatentsListener'
+  Wtl\HioTypo3Connector\EventListener\AttachHioOrgUnitToHioPersonsListener:
+    tags:
+      - name: event.listener
+        identifier: 'attachHioOrgUnitToHioPersonsListener'
   Wtl\HioTypo3Connector\EventListener\AttachHioOrgUnitToHioProjectsListener:
     tags:
       - name: event.listener

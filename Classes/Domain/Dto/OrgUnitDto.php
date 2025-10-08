@@ -7,6 +7,7 @@ use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\AddressDto;
 use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\DoctoralProgramDto;
 use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\HabilitationDto;
 use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\PatentDto;
+use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\PersonDto;
 use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\ProjectDto;
 use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\PublicationDto;
 use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\ResearchInfrastructureDto;
@@ -27,6 +28,7 @@ class OrgUnitDto
     protected array $doctoralPrograms = [];
     protected array $habilitations = [];
     protected array $patents = [];
+    protected array $persons = [];
     protected array $projects = [];
     protected array $publications = [];
     protected array $researchInfrastructures = [];
@@ -58,6 +60,15 @@ class OrgUnitDto
     public function setPublications(array $publications): void
     {
         $this->publications = $publications;
+    }
+
+    public function getPersons(): array
+    {
+        return $this->persons;
+    }
+    public function setPersons(array $persons): void
+    {
+        $this->persons = $persons;
     }
 
     public function getProjects(): array
@@ -127,6 +138,7 @@ class OrgUnitDto
         $dto->setDoctoralPrograms(array_map(fn($item) => DoctoralProgramDto::fromArray($item), $data['doctoralPrograms'] ?? []));
         $dto->setHabilitations(array_map(fn($item) => HabilitationDto::fromArray($item), $data['habilitations'] ?? []));
         $dto->setPatents(array_map(fn($item) => PatentDto::fromArray($item), $data['patents'] ?? []));
+        $dto->setPersons(array_map(fn($item) => PersonDto::fromArray($item), $data['persons'] ?? []));
         $dto->setProjects(array_map(fn($item) => ProjectDto::fromArray($item), $data['projects'] ?? []));
         $dto->setPublications(array_map(fn($item) => PublicationDto::fromArray($item), $data['publications'] ?? []));
         $dto->setResearchInfrastructures(array_map(fn($item) => ResearchInfrastructureDto::fromArray($item), $data['researchInfrastructures'] ?? []));
