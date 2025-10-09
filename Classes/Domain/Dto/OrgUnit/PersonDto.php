@@ -4,7 +4,7 @@ namespace Wtl\HioTypo3Connector\Domain\Dto\OrgUnit;
 
 class PersonDto
 {
-    protected ?array $affiliations = [];
+    protected array $affiliations = [];
     protected int $id;
     protected string $name = '';
 
