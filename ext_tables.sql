@@ -72,6 +72,7 @@ CREATE TABLE tx_hiotypo3connector_domain_model_orgunit
     publications      INT(11) DEFAULT '0' NOT NULL,
     projects          INT(11) DEFAULT '0' NOT NULL,
     patents           INT(11) DEFAULT '0' NOT NULL,
+    persons           INT(11) DEFAULT '0' NOT NULL,
     doctoral_programs INT(11) DEFAULT '0' NOT NULL,
     habilitations     INT(11) DEFAULT '0' NOT NULL,
     research_infrastructures     INT(11) DEFAULT '0' NOT NULL,

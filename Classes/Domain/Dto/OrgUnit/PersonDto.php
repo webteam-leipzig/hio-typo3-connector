@@ -1,9 +1,8 @@
 <?php
-declare(strict_types=1);
 
-namespace Wtl\HioTypo3Connector\Domain\Dto\Person;
+namespace Wtl\HioTypo3Connector\Domain\Dto\OrgUnit;
 
-class OrgUnitDto
+class PersonDto
 {
     protected array $affiliations = [];
     protected int $id;
@@ -13,27 +12,22 @@ class OrgUnitDto
     {
         return $this->id;
     }
-
     public function setId(int $id): void
     {
         $this->id = $id;
     }
-
     public function getName(): string
     {
         return $this->name;
     }
-
     public function setName(string $name): void
     {
         $this->name = $name;
     }
-
     public function getAffiliations(): array
     {
         return $this->affiliations;
     }
-
     public function setAffiliations(array $affiliations): void
     {
         $this->affiliations = $affiliations;
@@ -41,15 +35,10 @@ class OrgUnitDto
 
     static public function fromArray(array $data): self
     {
-        if (count($data) === 0) {
-            return new self();
-        }
-
-        $dto = new self();
-        $dto->setId($data['id']);
-        $dto->setName($data['name'] ?? '');
-        $dto->setAffiliations($data['affiliations'] ?? []);
-
-        return $dto;
+        $personDto = new self();
+        $personDto->setId($data['id']);
+        $personDto->setName($data['name'] ?? '');
+        $personDto->setAffiliations($data['affiliations'] ?? []);
+        return $personDto;
     }
 }
