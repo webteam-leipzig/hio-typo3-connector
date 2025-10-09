@@ -7,15 +7,16 @@ use Wtl\HioTypo3Connector\Domain\Dto\Person\OrgUnitDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Person\ResearchPartnerDto;
 use Wtl\HioTypo3Connector\Trait\WithId;
 use Wtl\HioTypo3Connector\Trait\WithName;
+use Wtl\HioTypo3Connector\Trait\WithRole;
 
 class PersonDto
 {
     use WithId;
     use WithName;
+    use WithRole;
 
     protected ?OrgUnitDto $orgUnit = null;
     protected ?ResearchPartnerDto $researchPartner = null;
-    protected ?string $role = null;
 
     public function getOrgUnit(): OrgUnitDto|null
     {
@@ -34,16 +35,6 @@ class PersonDto
     public function setResearchPartner(?ResearchPartnerDto $researchPartner): void
     {
         $this->researchPartner = $researchPartner;
-    }
-
-    public function getRole(): ?string
-    {
-        return $this->role;
-    }
-
-    public function setRole(?string $role): void
-    {
-        $this->role = $role;
     }
 
     static public function fromArray(array $data): self

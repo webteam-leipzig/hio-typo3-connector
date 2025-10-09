@@ -5,22 +5,13 @@ namespace Wtl\HioTypo3Connector\Domain\Dto\ResearchInfrastructure;
 
 use Wtl\HioTypo3Connector\Trait\WithId;
 use Wtl\HioTypo3Connector\Trait\WithName;
+use Wtl\HioTypo3Connector\Trait\WithRole;
 
 class OrgUnitDto
 {
     use WithId;
     use WithName;
-
-    protected string $role = '';
-
-    public function getRole(): string
-    {
-        return $this->role;
-    }
-    public function setRole(string $role): void
-    {
-        $this->role = $role;
-    }
+    use WithRole;
 
     static public function fromArray(array $data): self
     {
