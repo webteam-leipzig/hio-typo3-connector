@@ -3,47 +3,27 @@ declare(strict_types=1);
 
 namespace Wtl\HioTypo3Connector\Domain\Dto\Person;
 
+use Wtl\HioTypo3Connector\Trait\WithEndDate;
+use Wtl\HioTypo3Connector\Trait\WithId;
+use Wtl\HioTypo3Connector\Trait\WithLanguage;
+use Wtl\HioTypo3Connector\Trait\WithStartDate;
+use Wtl\HioTypo3Connector\Trait\WithStatus;
+use Wtl\HioTypo3Connector\Trait\WithTitle;
+use Wtl\HioTypo3Connector\Trait\WithType;
+use Wtl\HioTypo3Connector\Trait\WithVisibility;
+
 class ProjectDto
 {
-    protected ?\DateTime $endDate = null;
-    protected int $id;
-    protected string $language = '';
+    use WithId;
+    use WithEndDate;
+    use WithLanguage;
+    use WithStartDate;
+    use WithStatus;
+    use WithTitle;
+    use WithType;
+    use WithVisibility;
+
     protected string $objective = '';
-    protected ?\DateTime $startDate = null;
-    protected string $status = '';
-    protected string $title = '';
-    protected ?string $type = null;
-    protected string $visibility = '';
-
-    public function getEndDate(): ?\DateTime
-    {
-        return $this->endDate;
-    }
-
-    public function setEndDate(?\DateTime $endDate): void
-    {
-        $this->endDate = $endDate;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-
-    public function getLanguage(): string
-    {
-        return $this->language;
-    }
-
-    public function setLanguage(string $language): void
-    {
-        $this->language = $language;
-    }
 
     public function getObjective(): string
     {
@@ -54,58 +34,6 @@ class ProjectDto
     {
         $this->objective = $objective;
     }
-
-    public function getStartDate(): ?\DateTime
-    {
-        return $this->startDate;
-    }
-
-    public function setStartDate(?\DateTime $startDate): void
-    {
-        $this->startDate = $startDate;
-    }
-
-    public function getStatus(): string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): void
-    {
-        $this->status = $status;
-    }
-
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): void
-    {
-        $this->title = $title;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(?string $type): void
-    {
-        $this->type = $type;
-    }
-
-    public function getVisibility(): string
-    {
-        return $this->visibility;
-    }
-
-    public function setVisibility(string $visibility): void
-    {
-        $this->visibility = $visibility;
-    }
-
-
 
     static public function fromArray(array $data): self
     {

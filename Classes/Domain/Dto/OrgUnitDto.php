@@ -15,15 +15,16 @@ use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\SpinOffDto;
 use Wtl\HioTypo3Connector\Trait\WithDetails;
 use Wtl\HioTypo3Connector\Trait\WithObjectId;
 use Wtl\HioTypo3Connector\Trait\WithSearchIndex;
+use Wtl\HioTypo3Connector\Trait\WithTitle;
 
 class OrgUnitDto
 {
     use WithObjectId;
     use WithDetails;
     use WithSearchIndex;
+    use WithTitle;
 
     protected ?AddressDto $address = null;
-    protected string $title = '';
 
     protected array $doctoralPrograms = [];
     protected array $habilitations = [];
@@ -41,15 +42,6 @@ class OrgUnitDto
     public function setAddress(?AddressDto $address): void
     {
         $this->address = $address;
-    }
-
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-    public function setTitle(string $title): void
-    {
-        $this->title = $title;
     }
 
     public function getPublications(): array

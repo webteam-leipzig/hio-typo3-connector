@@ -5,32 +5,17 @@ namespace Wtl\HioTypo3Connector\Domain\Dto\DoctoralProgram;
 
 use Wtl\HioTypo3Connector\Domain\Dto\Person\OrgUnitDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Person\ResearchPartnerDto;
+use Wtl\HioTypo3Connector\Trait\WithId;
+use Wtl\HioTypo3Connector\Trait\WithName;
 
 class PersonDto
 {
-    protected ?int $id = null;
-    protected string $name = '';
+    use WithId;
+    use WithName;
+
     protected ?OrgUnitDto $orgUnit = null;
     protected ?ResearchPartnerDto $researchPartner = null;
     protected ?string $role = null;
-
-    public function getId(): int|null
-    {
-        return $this->id;
-    }
-    public function setId(?int $id): void
-    {
-        $this->id = $id;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-    }
 
     public function getOrgUnit(): OrgUnitDto|null
     {

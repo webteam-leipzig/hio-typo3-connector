@@ -11,12 +11,20 @@ use Wtl\HioTypo3Connector\Domain\Dto\Publication\PersonDto;
 use Wtl\HioTypo3Connector\Trait\WithDetails;
 use Wtl\HioTypo3Connector\Trait\WithObjectId;
 use Wtl\HioTypo3Connector\Trait\WithSearchIndex;
+use Wtl\HioTypo3Connector\Trait\WithStatus;
+use Wtl\HioTypo3Connector\Trait\WithTitle;
+use Wtl\HioTypo3Connector\Trait\WithType;
+use Wtl\HioTypo3Connector\Trait\WithVisibility;
 
 class PublicationDto
 {
     use WithObjectId;
     use WithDetails;
     use WithSearchIndex;
+    use WithStatus;
+    use WithTitle;
+    use WithType;
+    use WithVisibility;
 
     protected string $abstract = '';
     protected string $openAccess = '';
@@ -46,11 +54,7 @@ class PublicationDto
     protected ?int $releaseYear = null;
     protected string $resource = '';
     protected string $reviewed = '';
-    protected string $status = '';
     protected string $subtitle = '';
-    protected string $title = '';
-    protected string $type = '';
-    protected string $visibility = '';
 
     public function getCitations(): array
     {
@@ -60,10 +64,6 @@ class PublicationDto
     {
         $this->citations = $citations;
     }
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
     public function getSubtitle(): string
     {
         return $this->subtitle;
@@ -71,10 +71,6 @@ class PublicationDto
     public function getAbstract(): string
     {
         return $this->abstract;
-    }
-    public function getType(): string
-    {
-        return $this->type;
     }
     public function getDocument(): string
     {
@@ -96,10 +92,6 @@ class PublicationDto
     {
         $this->abstract = $abstract;
     }
-    public function setType(string $type): void
-    {
-        $this->type = $type;
-    }
     public function setDocument(string $document): void
     {
         $this->document = $document;
@@ -112,12 +104,6 @@ class PublicationDto
     {
         $this->reviewed = $reviewed;
     }
-
-    public function setTitle(string $title): void
-    {
-        $this->title = $title;
-    }
-
     public function getPersons(): array
     {
         return $this->persons;
@@ -170,24 +156,6 @@ class PublicationDto
     public function setGlobalIdentifiers(array $globalIdentifiers): void
     {
         $this->globalIdentifiers = $globalIdentifiers;
-    }
-
-    public function getVisibility(): string
-    {
-        return $this->visibility;
-    }
-    public function setVisibility(string $visibility): void
-    {
-        $this->visibility = $visibility;
-    }
-
-    public function getStatus(): string
-    {
-        return $this->status;
-    }
-    public function setStatus(string $status): void
-    {
-        $this->status = $status;
     }
 
     public function getOpenAccess(): string

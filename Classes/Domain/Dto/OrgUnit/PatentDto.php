@@ -3,26 +3,23 @@ declare(strict_types=1);
 
 namespace Wtl\HioTypo3Connector\Domain\Dto\OrgUnit;
 
+use Wtl\HioTypo3Connector\Trait\WithDescription;
+use Wtl\HioTypo3Connector\Trait\WithId;
+use Wtl\HioTypo3Connector\Trait\WithStatus;
+use Wtl\HioTypo3Connector\Trait\WithTitle;
+use Wtl\HioTypo3Connector\Trait\WithVisibility;
+
 class PatentDto
 {
-    protected ?string $description = null;
+    use WithDescription;
+    use WithId;
+    use WithStatus;
+    use WithTitle;
+    use WithVisibility;
+
     protected ?\DateTime $grantDate = null;
-    protected int $id;
     protected string $patentNumber = '';
     protected ?\DateTime $registrationDate = null;
-    protected string $status = '';
-    protected string $title = '';
-    protected string $visibility = '';
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): void
-    {
-        $this->description = $description;
-    }
 
     public function getGrantDate(): ?\DateTime
     {
@@ -32,16 +29,6 @@ class PatentDto
     public function setGrantDate(?\DateTime $grantDate): void
     {
         $this->grantDate = $grantDate;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function setId(int $id): void
-    {
-        $this->id = $id;
     }
 
     public function getPatentNumber(): string
@@ -62,36 +49,6 @@ class PatentDto
     public function setRegistrationDate(?\DateTime $registrationDate): void
     {
         $this->registrationDate = $registrationDate;
-    }
-
-    public function getStatus(): string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): void
-    {
-        $this->status = $status;
-    }
-
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): void
-    {
-        $this->title = $title;
-    }
-
-    public function getVisibility(): string
-    {
-        return $this->visibility;
-    }
-
-    public function setVisibility(string $visibility): void
-    {
-        $this->visibility = $visibility;
     }
 
     static public function fromArray(array $data): self
