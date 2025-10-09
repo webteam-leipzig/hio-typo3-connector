@@ -24,11 +24,11 @@ class PersonDto
     {
         $this->name = $name;
     }
-    public function getAffiliations(): ?array
+    public function getAffiliations(): array
     {
         return $this->affiliations;
     }
-    public function setAffiliations(?array $affiliations): void
+    public function setAffiliations(array $affiliations): void
     {
         $this->affiliations = $affiliations;
     }
