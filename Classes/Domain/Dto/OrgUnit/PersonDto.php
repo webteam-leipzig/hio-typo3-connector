@@ -5,14 +5,14 @@ namespace Wtl\HioTypo3Connector\Domain\Dto\OrgUnit;
 class PersonDto
 {
     protected ?array $affiliations = [];
-    protected ?int $id = null;
+    protected int $id;
     protected string $name = '';
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
-    public function setId(?int $id): void
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
