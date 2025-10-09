@@ -5,7 +5,7 @@ namespace Wtl\HioTypo3Connector\Domain\Dto\Person;
 
 class OrgUnitDto
 {
-    protected ?array $affiliations = [];
+    protected array $affiliations = [];
     protected int $id;
     protected string $name = '';
 
@@ -29,12 +29,12 @@ class OrgUnitDto
         $this->name = $name;
     }
 
-    public function getAffiliations(): ?array
+    public function getAffiliations(): array
     {
         return $this->affiliations;
     }
 
-    public function setAffiliations(?array $affiliations): void
+    public function setAffiliations(array $affiliations): void
     {
         $this->affiliations = $affiliations;
     }
