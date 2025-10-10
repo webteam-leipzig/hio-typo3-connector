@@ -94,3 +94,19 @@ CREATE TABLE tx_hiotypo3connector_domain_model_researchinfrastructure
     details      MEDIUMBLOB,
     search_index MEDIUMBLOB,
 );
+
+CREATE TABLE tx_hiotypo3connector_domain_model_nomination
+(
+    object_id         INT(11)  DEFAULT '0' NOT NULL,
+    title              LONGTEXT DEFAULT '',
+    nominees           INT(11) DEFAULT '0' NOT NULL,
+    org_units           INT(11) DEFAULT '0' NOT NULL,
+    projects          INT(11) DEFAULT '0' NOT NULL,
+    publications      INT(11) DEFAULT '0' NOT NULL,
+    scope         VARCHAR(255) DEFAULT NULL,
+    status         VARCHAR(255) DEFAULT NULL,
+    type         VARCHAR(255) DEFAULT NULL,
+    visibility         VARCHAR(255) DEFAULT NULL,
+    details           MEDIUMBLOB,
+    search_index      MEDIUMBLOB,
+);

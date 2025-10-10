@@ -124,7 +124,8 @@ class NominationDto
         $dto->setObjectId($data['id']);
         $dto->setOrgUnits(array_map(fn($item) => OrgUnitDto::fromArray($item), $data['orgUnits'] ?? []));
         $dto->setProjects(array_map(fn($item) => ProjectDto::fromArray($item), $data['projects'] ?? []));
-        $dto->setPrize(isset($data['prize']) ? PrizeDto::fromArray($data['prize']) : null);
+        /** todo: change array access to object */
+        $dto->setPrize(isset($data['prize']) ? PrizeDto::fromArray($data['prize'][0]) : null);
         $dto->setPublications(array_map(fn($item) => PublicationDto::fromArray($item), $data['publications'] ?? []));
         $dto->setScope($data['scope'] ?? '');
         $dto->setSearchIndex($data);
