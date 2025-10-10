@@ -15,9 +15,10 @@ class HioNominationService extends HioApiService
         }
 
         $result = $apiResponse->getData();
+        $nominations = [];
         foreach ($result as $nomination) {
             $nominations[] = NominationDto::fromArray($nomination);
         }
-        return $nominations ?? [];
+        return $nominations;
     }
 }
