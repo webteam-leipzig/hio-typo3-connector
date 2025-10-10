@@ -12,8 +12,6 @@ use Wtl\HioTypo3Connector\Event\AttachHioNominationToHioOrgUnitsEvent;
 use Wtl\HioTypo3Connector\Event\AttachHioNominationToHioPersonsEvent;
 use Wtl\HioTypo3Connector\Event\AttachHioNominationToHioProjectsEvent;
 use Wtl\HioTypo3Connector\Event\AttachHioNominationToHioPublicationsEvent;
-use Wtl\HioTypo3Connector\Event\AttachHioOrgUnitToHioProjectsEvent;
-use Wtl\HioTypo3Connector\Event\AttachHioOrgUnitToHioPublicationsEvent;
 use Wtl\HioTypo3Connector\Event\ReceiveHioNominationEvent;
 
 class ReceiveHioNominationListener
