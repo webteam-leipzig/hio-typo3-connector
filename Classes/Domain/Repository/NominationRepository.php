@@ -14,10 +14,10 @@ class NominationRepository extends BaseRepository
         if ($model === null) {
             $model = new Nomination();
             $model->setObjectId($dto->getObjectId());
-            $model->setStatus($dto->getStatus());
+            $model->setStatus($dto->getStatus()->getName());
             $model->setTitle($dto->getTitle());
             $model->setType($dto->getType());
-            $model->setVisibility($dto->getVisibility());
+            $model->setVisibility($dto->getVisibility()->getName());
             $model->setDetails($dto->getDetails());
             $model->setSearchIndex($dto->getSearchIndex());
             $model->setPid($storagePageId);
@@ -25,10 +25,10 @@ class NominationRepository extends BaseRepository
             $this->add($model);
         } else {
             $model->setObjectId($dto->getObjectId());
-            $model->setStatus($dto->getStatus());
+            $model->setStatus($dto->getStatus()->getName());
             $model->setTitle($dto->getTitle());
             $model->setType($dto->getType());
-            $model->setVisibility($dto->getVisibility());
+            $model->setVisibility($dto->getVisibility()->getName());
             $model->setDetails($dto->getDetails());
             $model->setSearchIndex($dto->getSearchIndex());
             $this->update($model);

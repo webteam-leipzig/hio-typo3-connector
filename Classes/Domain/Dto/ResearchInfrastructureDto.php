@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Wtl\HioTypo3Connector\Domain\Dto;
 
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use Wtl\HioTypo3Connector\Domain\Dto\Misc\VisibilityDto;
 use Wtl\HioTypo3Connector\Domain\Dto\ResearchInfrastructure\OrgUnitDto;
 use Wtl\HioTypo3Connector\Domain\Dto\ResearchInfrastructure\PublicationDto;
 use Wtl\HioTypo3Connector\Trait\WithDescription;
@@ -76,7 +77,7 @@ class ResearchInfrastructureDto
         $dto->setPublications(array_map(fn($item) => PublicationDto::fromArray($item), $data['publications'] ?? []));
         $dto->setTitle($data['title'] ?? '');
         $dto->setType($data['type'] ?? '');
-        $dto->setVisibility($data['visibility'] ?? '');
+        $dto->setVisibility(VisibilityDto::fromArray($data['visibility']) ?? '');
 
         return $dto;
     }

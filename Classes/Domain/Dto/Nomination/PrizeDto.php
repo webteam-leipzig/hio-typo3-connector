@@ -2,6 +2,7 @@
 
 namespace Wtl\HioTypo3Connector\Domain\Dto\Nomination;
 
+use Wtl\HioTypo3Connector\Domain\Dto\Misc\StatusDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Nomination\Prize\AwardingOrganizationDto;
 use Wtl\HioTypo3Connector\Trait\WithDescription;
 use Wtl\HioTypo3Connector\Trait\WithId;
@@ -54,7 +55,7 @@ class PrizeDto
         $instance->setDescription($data['description'] ?? null);
         $instance->setEndowed($data['endowed'] ?? null);
         $instance->setId($data['id'] ?? null);
-        $instance->setStatus($data['status'] ?? null);
+        $instance->setStatus(StatusDto::fromArray($data['status']) ?? null);
         $instance->setTitle($data['title'] ?? null);
         $instance->setType($data['type'] ?? null);
         return $instance;

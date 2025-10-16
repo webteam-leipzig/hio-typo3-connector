@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace Wtl\HioTypo3Connector\Domain\Dto;
 
 use DateTime;
+use Wtl\HioTypo3Connector\Domain\Dto\Misc\StatusDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Misc\VisibilityDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Nomination\NomineeDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Nomination\OrgUnitDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Nomination\PrizeDto;
@@ -124,15 +126,14 @@ class NominationDto
         $dto->setObjectId($data['id']);
         $dto->setOrgUnits(array_map(fn($item) => OrgUnitDto::fromArray($item), $data['orgUnits'] ?? []));
         $dto->setProjects(array_map(fn($item) => ProjectDto::fromArray($item), $data['projects'] ?? []));
-        /** todo: change array access to object */
-        $dto->setPrize(isset($data['prize']) ? PrizeDto::fromArray($data['prize'][0]) : null);
+        $dto->setPrize(isset($data['prize']) ? PrizeDto::fromArray($data['prize']) : null);
         $dto->setPublications(array_map(fn($item) => PublicationDto::fromArray($item), $data['publications'] ?? []));
         $dto->setScope($data['scope'] ?? '');
         $dto->setSearchIndex($data);
-        $dto->setStatus($data['status'] ?? '');
+        $dto->setStatus(StatusDto::fromArray($data['status']) ?? null);
         $dto->setTitle($data['title'] ?? '');
         $dto->setType($data['type'] ?? '');
-        $dto->setVisibility($data['visibility'] ?? '');
+        $dto->setVisibility(VisibilityDto::fromArray($data['visibility']) ?? '');
 
         return $dto;
     }
