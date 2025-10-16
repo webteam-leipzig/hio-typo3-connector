@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Wtl\HioTypo3Connector\Domain\Dto;
 
+use Wtl\HioTypo3Connector\Domain\Dto\Misc\StatusDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Misc\VisibilityDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Project\FundingProgramDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Project\PersonDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Project\ResearchAreaDto;
@@ -170,11 +172,11 @@ class ProjectDto
         $project->setResearchAreas($data['researchAreas'] ?? []);
         $project->setResearchAreasKdsf($data['researchAreasKdsf'] ?? []);
         $project->setShorttext($data['shorttext'] ?? '');
-        $project->setStatus($data['status'] ?? '');
+        $project->setStatus(StatusDto::fromArray($data['status']) ?? null);
         $project->setTitle($data['title'] ?? '');
         $project->setType($data['type'] ?? '');
         $project->setUniquename($data['uniquename'] ?? '');
-        $project->setVisibility($data['visibility'] ?? '');
+        $project->setVisibility(VisibilityDto::fromArray($data['visibility']) ?? null);
 
         $members = [];
         foreach ($data['persons'] ?? [] as $person) {
