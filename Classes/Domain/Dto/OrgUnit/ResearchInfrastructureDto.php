@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Wtl\HioTypo3Connector\Domain\Dto\OrgUnit;
 
+use Wtl\HioTypo3Connector\Domain\Dto\Misc\VisibilityDto;
 use Wtl\HioTypo3Connector\Trait\WithDescription;
 use Wtl\HioTypo3Connector\Trait\WithId;
 use Wtl\HioTypo3Connector\Trait\WithLanguage;
@@ -30,7 +31,7 @@ class ResearchInfrastructureDto
         $dto->setLanguage($data['language'] ?? '');
         $dto->setTitle($data['name'] ?? '');
         $dto->setType($data['type'] ?? '');
-        $dto->setVisibility($data['visibility'] ?? '');
+        $dto->setVisibility(VisibilityDto::fromArray($data['visibility']) ?? null);
 
         return $dto;
     }

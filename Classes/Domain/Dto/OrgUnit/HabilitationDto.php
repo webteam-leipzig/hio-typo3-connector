@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 namespace Wtl\HioTypo3Connector\Domain\Dto\OrgUnit;
 
+use Wtl\HioTypo3Connector\Domain\Dto\Misc\StatusDto;
 use Wtl\HioTypo3Connector\Trait\WithEndDate;
 use Wtl\HioTypo3Connector\Trait\WithId;
 use Wtl\HioTypo3Connector\Trait\WithLanguage;
 use Wtl\HioTypo3Connector\Trait\WithStartDate;
+use Wtl\HioTypo3Connector\Trait\WithStatus;
 use Wtl\HioTypo3Connector\Trait\WithTitle;
 
 class HabilitationDto
@@ -15,6 +17,7 @@ class HabilitationDto
     use WithId;
     use WithLanguage;
     use WithStartDate;
+    use WithStatus;
     use WithTitle;
 
     static public function fromArray(array $data): self
@@ -24,6 +27,7 @@ class HabilitationDto
         $dto->setId($data['id']);
         $dto->setLanguage($data['language'] ?? '');
         $dto->setStartDate(isset($data['startDate']) ? new \DateTime($data['startDate']) : null);
+        $dto->setStatus(StatusDto::fromArray($data['status']) ?? null);
         $dto->setTitle($data['title']);
         return $dto;
     }

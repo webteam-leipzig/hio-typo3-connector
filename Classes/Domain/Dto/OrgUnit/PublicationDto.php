@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Wtl\HioTypo3Connector\Domain\Dto\OrgUnit;
 
+use Wtl\HioTypo3Connector\Domain\Dto\Misc\StatusDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Misc\VisibilityDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Publication\ConferenceDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Publication\JournalDto;
 use Wtl\HioTypo3Connector\Trait\WithId;
@@ -72,11 +74,11 @@ class PublicationDto
         $dto->setId($data['id'] ?? null);
         $dto->setResource($data['resource'] ?? '');
         $dto->setReviewed($data['reviewed'] ?? null);
-        $dto->setStatus($data['status'] ?? '');
+        $dto->setStatus(StatusDto::fromArray($data['status']) ?? null);
         $dto->setSubtitle($data['subtitle'] ?? '');
         $dto->setTitle($data['title'] ?? '');
         $dto->setType($data['type'] ?? '');
-        $dto->setVisibility($data['visibility'] ?? '');
+        $dto->setVisibility(VisibilityDto::fromArray($data['visibility']) ?? null);
 
         return $dto;
     }

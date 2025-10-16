@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace Wtl\HioTypo3Connector\Domain\Dto;
 
-use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\AddressDto;
+use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\PostAddressDto;
 use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\DoctoralProgramDto;
+use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\EAddressDto;
 use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\HabilitationDto;
 use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\PatentDto;
 use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\PersonDto;
+use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\PrizeDto;
 use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\ProjectDto;
 use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\PublicationDto;
 use Wtl\HioTypo3Connector\Domain\Dto\OrgUnit\ResearchInfrastructureDto;
@@ -24,24 +26,33 @@ class OrgUnitDto
     use WithSearchIndex;
     use WithTitle;
 
-    protected ?AddressDto $address = null;
-
+    protected array $eAddresses = [];
     protected array $doctoralPrograms = [];
     protected array $habilitations = [];
     protected array $patents = [];
     protected array $persons = [];
     protected array $projects = [];
+    protected array $prizes = [];
     protected array $publications = [];
     protected array $researchInfrastructures = [];
     protected array $spinOffs = [];
 
-    public function getAddress(): ?AddressDto
+    public function getAddress(): ?PostAddressDto
     {
         return $this->address;
     }
-    public function setAddress(?AddressDto $address): void
+    public function setAddress(?PostAddressDto $address): void
     {
         $this->address = $address;
+    }
+
+    public function getEAddresses(): array
+    {
+        return $this->eAddresses;
+    }
+    public function setEAddresses(array $eAddresses): void
+    {
+        $this->eAddresses = $eAddresses;
     }
 
     public function getPublications(): array
@@ -70,6 +81,15 @@ class OrgUnitDto
     public function setProjects(array $projects): void
     {
         $this->projects = $projects;
+    }
+
+    public function getPrizes(): array
+    {
+        return $this->prizes;
+    }
+    public function setPrizes(array $prizes): void
+    {
+        $this->prizes = $prizes;
     }
 
     public function getPatents(): array
@@ -120,17 +140,17 @@ class OrgUnitDto
     static public function fromArray(array $data): OrgUnitDto
     {
         $dto = new self();
-        $dto->setObjectId($data['id']);
         $dto->setDetails($data);
+        $dto->setObjectId($data['id']);
         $dto->setSearchIndex($data);
-
-        $dto->setAddress(isset($data['address']) ? AddressDto::fromArray($data['address']) : null);
         $dto->setTitle($data['name'] ?? '');
 
         $dto->setDoctoralPrograms(array_map(fn($item) => DoctoralProgramDto::fromArray($item), $data['doctoralPrograms'] ?? []));
+        $dto->setEAddresses(array_map(fn($item) => EAddressDto::fromArray($item), $data['eAddresses'] ?? []));
         $dto->setHabilitations(array_map(fn($item) => HabilitationDto::fromArray($item), $data['habilitations'] ?? []));
         $dto->setPatents(array_map(fn($item) => PatentDto::fromArray($item), $data['patents'] ?? []));
         $dto->setPersons(array_map(fn($item) => PersonDto::fromArray($item), $data['persons'] ?? []));
+        $dto->setPrizes(array_map(fn($item) => PrizeDto::fromArray($item), $data['prizes'] ?? []));
         $dto->setProjects(array_map(fn($item) => ProjectDto::fromArray($item), $data['projects'] ?? []));
         $dto->setPublications(array_map(fn($item) => PublicationDto::fromArray($item), $data['publications'] ?? []));
         $dto->setResearchInfrastructures(array_map(fn($item) => ResearchInfrastructureDto::fromArray($item), $data['researchInfrastructures'] ?? []));
