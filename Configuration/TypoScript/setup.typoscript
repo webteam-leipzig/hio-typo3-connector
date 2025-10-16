@@ -41,6 +41,12 @@ plugin.tx_hiotypo3connector {
     publications {
       personTargetPageUid = {$plugin.tx_hiotypo3connector.settings.publications.personTargetPageUid}
     }
+    nominations {
+      personTargetPageUid = {$plugin.tx_hiotypo3connector.settings.nominations.personTargetPageUid}
+      orgUnitTargetPageUid = {$plugin.tx_hiotypo3connector.settings.nominations.orgUnitTargetPageUid}
+      projectTargetPageUid = {$plugin.tx_hiotypo3connector.settings.nominations.projectTargetPageUid}
+      publicationTargetPageUid = {$plugin.tx_hiotypo3connector.settings.nominations.publicationTargetPageUid}
+    }
     spinoffs {
       personTargetPageUid = {$plugin.tx_hiotypo3connector.settings.spinoffs.personTargetPageUid}
     }
