@@ -17,7 +17,7 @@ class OrgUnitStats
         $projectStatusCounts = [];
         foreach ($projects as $project) {
             $details = $project->getDetails();
-            $projectStatus = $details['status'] ?? 'Unknown';
+            $projectStatus = $details['status']['name'] ?? 'Unknown';
             if (isset($projectStatusCounts[$projectStatus])) {
                 $projectStatusCounts[$projectStatus]++;
             } else {
