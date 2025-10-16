@@ -7,7 +7,6 @@ use Wtl\HioTypo3Connector\Trait\WithEndDate;
 use Wtl\HioTypo3Connector\Trait\WithId;
 use Wtl\HioTypo3Connector\Trait\WithLanguage;
 use Wtl\HioTypo3Connector\Trait\WithStartDate;
-use Wtl\HioTypo3Connector\Trait\WithStatus;
 use Wtl\HioTypo3Connector\Trait\WithTitle;
 
 class HabilitationDto
