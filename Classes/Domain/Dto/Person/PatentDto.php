@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Wtl\HioTypo3Connector\Domain\Dto\Person;
 
+use Wtl\HioTypo3Connector\Domain\Dto\Misc\StatusDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Misc\VisibilityDto;
 use Wtl\HioTypo3Connector\Trait\WithDescription;
 use Wtl\HioTypo3Connector\Trait\WithId;
 use Wtl\HioTypo3Connector\Trait\WithStatus;
@@ -59,9 +61,9 @@ class PatentDto
         $dto->setId($data['id']);
         $dto->setPatentNumber($data['patentNumber'] ?? '');
         $dto->setRegistrationDate(isset($data['registrationDate']) ? new \DateTime($data['registrationDate']) : null);
-        $dto->setStatus($data['status'] ?? '');
+        $dto->setStatus(StatusDto::fromArray($data['status']) ?? null);
         $dto->setTitle($data['title']);
-        $dto->setVisibility($data['visibility'] ?? '');
+        $dto->setVisibility(VisibilityDto::fromArray($data['visibility']) ?? null);
         return $dto;
     }
 }
