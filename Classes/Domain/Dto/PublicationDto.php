@@ -12,6 +12,7 @@ use Wtl\HioTypo3Connector\Domain\Dto\Misc\VisibilityDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Publication\ConferenceDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Publication\GlobalIdentifierDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Publication\JournalDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Publication\KeywordDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Publication\PersonDto;
 use Wtl\HioTypo3Connector\Trait\WithDetails;
 use Wtl\HioTypo3Connector\Trait\WithObjectId;
@@ -44,9 +45,6 @@ class PublicationDto
      */
     protected array $globalIdentifiers;
     protected ?JournalDto $journal = null;
-    /**
-     * @var string[]
-     */
     protected array $keywords = [];
     /*
          *  @var LanguageDto[]
@@ -223,6 +221,7 @@ class PublicationDto
         if ($data['openAccess']) {
             $dto->setOpenAccess(OpenAccessDto::fromArray($data['openAccess']));
         }
+        $dto->setKeywords(array_map(fn($item) => KeywordDto::fromArray($item), $data['keywords'] ?? []));
         $dto->setPersons(array_map(fn($item) => PersonDto::fromArray($item), $data['persons'] ?? []));
         $dto->setReleaseYear($data['releaseYear'] ?? null);
         $dto->setResearchAreas(array_map(fn($item) => ResearchAreaDto::fromArray($item), $data['researchAreas'] ?? []));
