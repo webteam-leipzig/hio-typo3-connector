@@ -107,6 +107,7 @@ CREATE TABLE tx_hiotypo3connector_domain_model_nomination
     status         VARCHAR(255) DEFAULT NULL,
     type         VARCHAR(255) DEFAULT NULL,
     visibility         VARCHAR(255) DEFAULT NULL,
+    nomination_year INT(11) DEFAULT NULL,
     details           MEDIUMBLOB,
     search_index      MEDIUMBLOB,
 );

@@ -35,6 +35,64 @@
                 <target>Titel der Preisanerkennung</target>
             </trans-unit>
 
+            <trans-unit id="tx_hiotypo3connector_domain_model_nomination.nomination_year" resname="tx_hiotypo3connector_domain_model_nomination.nomination_year">
+                <source>Year of nomination</source>
+                <target>Jahr der Preisanerkennung</target>
+            </trans-unit>
+            <trans-unit id="tx_hiotypo3connector_domain_model_nomination.object_id" resname="tx_hiotypo3connector_domain_model_nomination.object_id">
+                <source>HISinOne-ID of Nomination</source>
+                <target>HISinOne-ID der Preisanerkennung</target>
+            </trans-unit>
+            <trans-unit id="tx_hiotypo3connector_domain_model_nomination.title" resname="tx_hiotypo3connector_domain_model_nomination.title">
+                <source>Title of Nomination</source>
+                <target>Titel der Preisanerkennung</target>
+            </trans-unit>
+            <trans-unit id="tx_hiotypo3connector_domain_model_nomination.orgUnits" resname="tx_hiotypo3connector_domain_model_nomination.orgUnits">
+                <source>Related organization units</source>
+                <target>Verknüpfte Organisationseinheiten</target>
+            </trans-unit>
+            <trans-unit id="tx_hiotypo3connector_domain_model_nomination.publications" resname="tx_hiotypo3connector_domain_model_nomination.publications">
+                <source>Related publications</source>
+                <target>Verknüpfte Publikationen</target>
+            </trans-unit>
+            <trans-unit id="tx_hiotypo3connector_domain_model_nomination.projects" resname="tx_hiotypo3connector_domain_model_nomination.projects">
+                <source>Related projects</source>
+                <target>Verknüpfte Projekte</target>
+            </trans-unit>
+            <trans-unit id="tx_hiotypo3connector_domain_model_nomination.nominees" resname="tx_hiotypo3connector_domain_model_nomination.nominees">
+                <source>Related nominees</source>
+                <target>Verknüpfte Personen</target>
+            </trans-unit>
+
+            <trans-unit id="flexform.nominationlist.orderBy" resname="flexform.nominationlist.orderBy">
+                <source>Sort order</source>
+                <target>Sortierreihenfolge</target>
+            </trans-unit>
+            <trans-unit id="flexform.nominationlist.orderBy.uid" resname="flexform.nominationlist.orderBy.uid">
+                <source>uid</source>
+                <target>unsortiert</target>
+            </trans-unit>
+            <trans-unit id="flexform.nominationlist.orderBy.title" resname="flexform.nominationlist.orderBy.title">
+                <source>alphabetic</source>
+                <target>Alphabetisch</target>
+            </trans-unit>
+            <trans-unit id="flexform.nominationlist.orderBy.titleDesc" resname="flexform.nominationlist.orderBy.titleDesc">
+                <source>alphabetic descending</source>
+                <target>Alphabetisch absteigend</target>
+            </trans-unit>
+            <trans-unit id="flexform.nominationlist.orderBy.title" resname="flexform.nominationlist.orderBy.title">
+                <source>alphabetic</source>
+                <target>Alphabetisch</target>
+            </trans-unit>
+            <trans-unit id="flexform.nominationlist.orderBy.nominationYear" resname="flexform.nominationlist.orderBy.nominationYear">
+                <source>Nomination year</source>
+                <target>Jahr der Preisanerkennung</target>
+            </trans-unit>
+            <trans-unit id="flexform.nominationlist.orderBy.nominationYearDesc" resname="flexform.nominationlist.orderBy.nominationYearDesc">
+                <source>Nomination year descending</source>
+                <target>Jahr der Preisanerkennung (absteigend)</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

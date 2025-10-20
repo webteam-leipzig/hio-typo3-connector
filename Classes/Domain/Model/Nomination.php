@@ -8,8 +8,9 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Nomination extends AbstractEntity
 {
-    public const ORDERABLE_COLUMNS = ['title', 'type', 'scope', 'status'];
+    public const ORDERABLE_COLUMNS = ['title', 'type', 'nominationYear', 'status'];
 
+    protected ?int $nominationYear = null;
     protected int $objectId = 0;
 
     protected ?string $status = null;
@@ -59,6 +60,15 @@ class Nomination extends AbstractEntity
         $this->orgUnits = new ObjectStorage();
         $this->projects = new ObjectStorage();
         $this->publications = new ObjectStorage();
+    }
+
+    public function getNominationYear(): ?int
+    {
+        return $this->nominationYear;
+    }
+    public function setNominationYear(?int $nominationYear): void
+    {
+        $this->nominationYear = $nominationYear;
     }
 
     public function getObjectId(): int

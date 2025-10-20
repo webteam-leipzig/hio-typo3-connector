@@ -186,6 +186,11 @@ ExtensionManagementUtility::addPiFlexFormValue(
     'hiotypo3connector_personlist',
     'FILE:EXT:hio_typo3_connector/Configuration/FlexForm/PersonList.xml',
 );
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['hiotypo3connector_nominationlist'] = 'pi_flexform';
+ExtensionManagementUtility::addPiFlexFormValue(
+    'hiotypo3connector_nominationlist',
+    'FILE:EXT:hio_typo3_connector/Configuration/FlexForm/NominationList.xml',
+);
 
 
 ExtensionUtility::registerPlugin(

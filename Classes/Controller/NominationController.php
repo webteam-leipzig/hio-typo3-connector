@@ -50,8 +50,11 @@ class NominationController extends BaseController
             );
         }
 
+        // get order settings from plugin configuration
+        $orderings = $this->getNominationOrderingFromProperty('orderBy');
+
         $paginator = $this->getPaginator(
-            $this->nominationRepository->findByFilter($filter),
+            $this->nominationRepository->findByFilter($filter, $orderings),
         );
         $this->view->assignMultiple([
             'paginator' => $paginator,

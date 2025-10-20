@@ -72,6 +72,17 @@ return [
                 'type' => 'passthrough',
             ],
         ],
+        'nomination_year' => [
+            'label' => $lllPrefix . 'tx_hiotypo3connector_domain_model_nomination.nomination_year',
+            'config' => [
+                'type' => 'input',
+                'size' => 60,
+                'max' => 4,
+                'eval' => 'trim',
+                'readOnly' => true,
+                'required' => false,
+            ],
+        ],
         'object_id' => [
             'exclude' => true,
             'label' => $lllPrefix . 'tx_hiotypo3connector_domain_model_nomination.object_id',
