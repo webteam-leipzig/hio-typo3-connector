@@ -2,28 +2,16 @@
 
 namespace Wtl\HioTypo3Connector\Domain\Dto\OrgUnit;
 
+use Wtl\HioTypo3Connector\Trait\WithId;
+use Wtl\HioTypo3Connector\Trait\WithName;
+
 class PersonDto
 {
-    protected array $affiliations = [];
-    protected int $id;
-    protected string $name = '';
+    use WithId;
+    use WithName;
 
-    public function getId(): int
-    {
-        return $this->id;
-    }
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-    public function getName(): string
-    {
-        return $this->name;
-    }
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-    }
+    protected array $affiliations = [];
+
     public function getAffiliations(): array
     {
         return $this->affiliations;

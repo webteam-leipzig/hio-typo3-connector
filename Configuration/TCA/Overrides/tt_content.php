@@ -25,6 +25,12 @@ ExtensionUtility::registerPlugin(
 );
 ExtensionUtility::registerPlugin(
     'HioTypo3Connector',
+    'Nominationlist',
+    'LLL:EXT:hio_typo3_connector/Resources/Private/Language/nomination.xlf:titleNominations',
+    'tx-hio_typo3_connector-list-of-nominations',
+);
+ExtensionUtility::registerPlugin(
+    'HioTypo3Connector',
     'Patentlist',
     'LLL:EXT:hio_typo3_connector/Resources/Private/Language/locallang.xlf:titlePatents',
     'tx-hio_typo3_connector-list-of-patents',
