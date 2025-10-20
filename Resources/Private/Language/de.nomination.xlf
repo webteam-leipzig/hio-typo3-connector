@@ -6,33 +6,33 @@
 
             <trans-unit id="titleNominations" resname="titleNominations">
                 <source>HISinOne nominations</source>
-                <target>HISinOne-Nominierungen</target>
+                <target>HISinOne-Preisanerkennungen</target>
             </trans-unit>
             <trans-unit id="descriptionNominations" resname="descriptionNominations">
                 <source>List of nominations available in HISinOne</source>
-                <target>Liste der in HISinOne verfügbaren Nominierungen</target>
+                <target>Liste der in HISinOne verfügbaren Preisanerkennungen</target>
             </trans-unit>
             <trans-unit id="noNominations" resname="noNominations">
                 <source>No nominations found</source>
-                <target>Keine Nominierungen gefunden</target>
+                <target>Keine Preisanerkennungen gefunden</target>
             </trans-unit>
 
             <trans-unit id="receive-hio-nominations_reaction" resname="receive-hio-nominations_reaction">
                 <source>Receive nomination data from HIO Middleware</source>
-                <target>Nominierungsdaten von der HIO-Middleware empfangen</target>
+                <target>Daten zu Preisanerkennungen von der HIO-Middleware empfangen</target>
             </trans-unit>
 
             <trans-unit id="tx_hiotypo3connector_domain_model_nomination" resname="tx_hiotypo3connector_domain_model_nomination">
                 <source>Nominations</source>
-                <target>Nominierungen</target>
+                <target>Preisanerkennungen</target>
             </trans-unit>
             <trans-unit id="tx_hiotypo3connector_domain_model_nomination.object_id" resname="tx_hiotypo3connector_domain_model_nomination.object_id">
                 <source>Nomination HISinOne-ID</source>
-                <target>Nominierungs HISinOne-ID</target>
+                <target>HISinOne-ID der Preisanerkennung</target>
             </trans-unit>
             <trans-unit id="tx_hiotypo3connector_domain_model_nomination.title" resname="tx_hiotypo3connector_domain_model_nomination.title">
                 <source>Nomination title</source>
-                <target>Nominierungstitel</target>
+                <target>Titel der Preisanerkennung</target>
             </trans-unit>
 
         </body>
