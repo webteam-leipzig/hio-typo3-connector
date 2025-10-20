@@ -9,7 +9,7 @@ class PostAddressDto
     protected ?string $addressAddition = null;
     protected ?AddressTagDto $addressTag = null;
     protected ?string $city = null;
-    protected ?string $compoany = null;
+    protected ?string $company = null;
     protected ?string $country = null;
     protected ?string $postOfficeBox = null;
     protected ?string $postcode = null;
@@ -60,11 +60,11 @@ class PostAddressDto
 
     public function getCompany(): ?string
     {
-        return $this->compoany;
+        return $this->company;
     }
     public function setCompany(?string $company): void
     {
-        $this->compoany = $company;
+        $this->company = $company;
     }
 
     public function getPostOfficeBox(): ?string
