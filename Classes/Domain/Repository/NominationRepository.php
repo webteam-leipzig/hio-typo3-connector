@@ -16,6 +16,7 @@ class NominationRepository extends BaseRepository
             $model = new Nomination();
             $model->setNominationYear($dto->getNominationYear());
             $model->setObjectId($dto->getObjectId());
+            $model->setScope($dto->getScope());
             $model->setStatus($dto->getStatus()->getName());
             $model->setTitle($dto->getTitle());
             $model->setType($dto->getType());
@@ -28,6 +29,7 @@ class NominationRepository extends BaseRepository
         } else {
             $model->setNominationYear($dto->getNominationYear());
             $model->setObjectId($dto->getObjectId());
+            $model->setScope($dto->getScope());
             $model->setStatus($dto->getStatus()->getName());
             $model->setTitle($dto->getTitle());
             $model->setType($dto->getType());

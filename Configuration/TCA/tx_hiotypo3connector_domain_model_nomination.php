@@ -94,8 +94,52 @@ return [
                 'required' => true,
             ],
         ],
+        'scope' => [
+            'label' => $lllPrefix . 'tx_hiotypo3connector_domain_model_nomination.scope',
+            'config' => [
+                'type' => 'input',
+                'size' => 60,
+                'max' => 255,
+                'eval' => 'trim',
+                'readOnly' => true,
+                'required' => false,
+            ],
+        ],
+        'status' => [
+            'label' => $lllPrefix . 'tx_hiotypo3connector_domain_model_nomination.status',
+            'config' => [
+                'type' => 'input',
+                'size' => 60,
+                'max' => 255,
+                'eval' => 'trim',
+                'readOnly' => true,
+                'required' => false,
+            ],
+        ],
         'title' => [
             'label' => $lllPrefix . 'tx_hiotypo3connector_domain_model_nomination.title',
+            'config' => [
+                'type' => 'input',
+                'size' => 60,
+                'max' => 255,
+                'eval' => 'trim',
+                'readOnly' => true,
+                'required' => false,
+            ],
+        ],
+        'type' => [
+            'label' => $lllPrefix . 'tx_hiotypo3connector_domain_model_nomination.type',
+            'config' => [
+                'type' => 'input',
+                'size' => 60,
+                'max' => 255,
+                'eval' => 'trim',
+                'readOnly' => true,
+                'required' => false,
+            ],
+        ],
+        'visibility' => [
+            'label' => $lllPrefix . 'tx_hiotypo3connector_domain_model_nomination.visibility',
             'config' => [
                 'type' => 'input',
                 'size' => 60,

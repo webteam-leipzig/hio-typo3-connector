@@ -13,6 +13,7 @@ class Nomination extends AbstractEntity
     protected ?int $nominationYear = null;
     protected int $objectId = 0;
 
+    protected ?string $scope = null;
     protected ?string $status = null;
     protected string $title = '';
     protected ?string $type = '';
@@ -78,6 +79,15 @@ class Nomination extends AbstractEntity
     public function setObjectId($objectId): void
     {
         $this->objectId = $objectId;
+    }
+
+    public function getScope(): ?string
+    {
+        return $this->scope;
+    }
+    public function setScope(?string $scope): void
+    {
+        $this->scope = $scope;
     }
 
     public function getTitle(): string
