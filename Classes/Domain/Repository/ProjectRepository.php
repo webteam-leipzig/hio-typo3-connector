@@ -13,6 +13,7 @@ class ProjectRepository extends BaseRepository
     {
         $projectModel = $this->findByObjectId($projectDto->getObjectId());
 
+        $budgetSourceTypes = $projectModel->extractBudgetSourceTypes($projectDto->getDetails());
         if ($projectModel === null) {
             $projectModel = new Project();
             $projectModel->setPid($storagePageId);
@@ -20,7 +21,8 @@ class ProjectRepository extends BaseRepository
             $projectModel->setDetails($projectDto->getDetails());
             $projectModel->setSearchIndex($projectDto->getSearchIndex());
 
-           $projectModel->setEndDate($projectDto->getEndDate());
+            $projectModel->setBudgetSourceTypes($budgetSourceTypes);
+            $projectModel->setEndDate($projectDto->getEndDate());
             $projectModel->setStartDate($projectDto->getStartDate());
             $projectModel->setStatus($projectDto->getStatus()->getName());
             $projectModel->setTitle($projectDto->getTitle());
@@ -31,6 +33,7 @@ class ProjectRepository extends BaseRepository
             $projectModel->setDetails($projectDto->getDetails());
             $projectModel->setSearchIndex($projectDto->getSearchIndex());
 
+            $projectModel->setBudgetSourceTypes($budgetSourceTypes);
             $projectModel->setEndDate($projectDto->getEndDate());
             $projectModel->setStartDate($projectDto->getStartDate());
             $projectModel->setStatus($projectDto->getStatus()->getName());
@@ -92,7 +95,6 @@ class ProjectRepository extends BaseRepository
         if ($ordering) {
             $query->setOrderings($ordering);
         }
-//        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($query, 'Optional Title');
         return $query->execute();
     }
 
