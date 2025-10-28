@@ -79,6 +79,16 @@ class ProjectRepository extends BaseRepository
             $constraints[] = $query->lessThanOrEqual('endDate', $filter->getEndDateTo());
         }
 
+        if ($filter->getBudgetSourceTypes()) {
+            if (is_array($filter->getBudgetSourceTypes())) {
+                $budgetSourceTypeConstraints = [];
+                foreach ($filter->getBudgetSourceTypes() as $budgetSourceType) {
+                    $budgetSourceTypeConstraints[] = $query->like('budgetSourceTypes', '%' . $budgetSourceType . '%');
+                }
+                $constraints[] = $query->logicalOr(...$budgetSourceTypeConstraints);
+            }
+        }
+
         if ($filter->getStatus()) {
             $constraints[] = $query->equals('status', $filter->getStatus());
         }
