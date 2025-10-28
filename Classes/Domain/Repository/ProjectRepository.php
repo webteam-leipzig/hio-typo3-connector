@@ -127,4 +127,28 @@ class ProjectRepository extends BaseRepository
         );
         return $query->execute(true);
     }
+
+    public function getProjectBudgetSourceTypes()
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        $query->statement(
+            'SELECT DISTINCT budget_source_types FROM tx_hiotypo3connector_domain_model_project WHERE budget_source_types IS NOT NULL AND budget_source_types != ""'
+        );
+        $resultSet = $query->execute(true);
+        if (!$resultSet) {
+            return [];
+        }
+
+        $budgetSourceTypes = [];
+        foreach ($resultSet as $result) {
+            $allTypes = explode(',', $result['budget_source_types']);
+            $budgetSourceTypes = array_merge($budgetSourceTypes ?? [], $allTypes);
+        }
+
+        $budgetSourceTypes = array_unique($budgetSourceTypes);
+        sort($budgetSourceTypes);
+
+        return $budgetSourceTypes;
+    }
 }
