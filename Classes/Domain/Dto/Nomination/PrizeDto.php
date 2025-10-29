@@ -2,7 +2,9 @@
 
 namespace Wtl\HioTypo3Connector\Domain\Dto\Nomination;
 
+use Wtl\HioTypo3Connector\Domain\Dto\Misc\EndowedDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Misc\StatusDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Misc\TypeDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Nomination\Prize\AwardingOrganizationDto;
 use Wtl\HioTypo3Connector\Trait\WithDescription;
 use Wtl\HioTypo3Connector\Trait\WithId;
@@ -16,11 +18,12 @@ class PrizeDto
     use WithId;
     use WithStatus;
     use WithTitle;
-    use WithType;
 
     protected ?array $awardingOrganizations = null;
     protected ?string $category;
-    protected ?string $endowed;
+    protected ?EndowedDto $endowed;
+
+    protected ?TypeDto $type;
 
     public function getAwardingOrganizations(): ?array
     {
@@ -38,13 +41,22 @@ class PrizeDto
     {
         $this->category = $category;
     }
-    public function getEndowed(): ?string
+    public function getEndowed(): ?EndowedDto
     {
         return $this->endowed;
     }
-    public function setEndowed(?string $endowed): void
+    public function setEndowed(?EndowedDto $endowed): void
     {
         $this->endowed = $endowed;
+    }
+
+    public function getType(): ?TypeDto
+    {
+        return $this->type;
+    }
+    public function setType(?TypeDto $type): void
+    {
+        $this->type = $type;
     }
 
     static function fromArray(array $data): self
@@ -53,11 +65,11 @@ class PrizeDto
         $instance->setAwardingOrganizations(array_map(fn($item) => AwardingOrganizationDto::fromArray($item), $data['awardingOrganizations'] ?? []));
         $instance->setCategory($data['category'] ?? null);
         $instance->setDescription($data['description'] ?? null);
-        $instance->setEndowed($data['endowed'] ?? null);
+        $instance->setEndowed(EndowedDto::fromArray($data['endowed']) ?? null);
         $instance->setId($data['id'] ?? null);
         $instance->setStatus(StatusDto::fromArray($data['status']) ?? null);
         $instance->setTitle($data['title'] ?? null);
-        $instance->setType($data['type'] ?? null);
+        $instance->setType(TypeDto::fromArray($data['type']) ?? null);
         return $instance;
     }
 }
