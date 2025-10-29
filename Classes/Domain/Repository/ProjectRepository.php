@@ -13,7 +13,6 @@ class ProjectRepository extends BaseRepository
     {
         $projectModel = $this->findByObjectId($projectDto->getObjectId());
 
-        $budgetSourceTypes = $projectModel->extractBudgetSourceTypes($projectDto->getDetails());
         if ($projectModel === null) {
             $projectModel = new Project();
             $projectModel->setPid($storagePageId);
@@ -21,6 +20,7 @@ class ProjectRepository extends BaseRepository
             $projectModel->setDetails($projectDto->getDetails());
             $projectModel->setSearchIndex($projectDto->getSearchIndex());
 
+            $budgetSourceTypes = $projectModel->extractBudgetSourceTypes($projectDto->getDetails());
             $projectModel->setBudgetSourceTypes($budgetSourceTypes);
             $projectModel->setEndDate($projectDto->getEndDate());
             $projectModel->setStartDate($projectDto->getStartDate());
@@ -33,6 +33,7 @@ class ProjectRepository extends BaseRepository
             $projectModel->setDetails($projectDto->getDetails());
             $projectModel->setSearchIndex($projectDto->getSearchIndex());
 
+            $budgetSourceTypes = $projectModel->extractBudgetSourceTypes($projectDto->getDetails());
             $projectModel->setBudgetSourceTypes($budgetSourceTypes);
             $projectModel->setEndDate($projectDto->getEndDate());
             $projectModel->setStartDate($projectDto->getStartDate());
