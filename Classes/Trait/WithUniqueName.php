@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Classes\Trait;
+namespace Wtl\HioTypo3Connector\Trait;
 
 trait WithUniqueName
 {
