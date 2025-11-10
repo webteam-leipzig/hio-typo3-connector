@@ -14,6 +14,7 @@ use Wtl\HioTypo3Connector\Domain\Dto\Publication\GlobalIdentifierDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Publication\JournalDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Publication\KeywordDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Publication\PersonDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Publication\PublicationTypeDto;
 use Wtl\HioTypo3Connector\Trait\WithDetails;
 use Wtl\HioTypo3Connector\Trait\WithObjectId;
 use Wtl\HioTypo3Connector\Trait\WithSearchIndex;
@@ -29,9 +30,10 @@ class PublicationDto
     use WithSearchIndex;
     use WithStatus;
     use WithTitle;
-    use WithType;
     use WithVisibility;
 
+    protected PublicationTypeDto $publicationTypeDto;
+    
     protected string $abstract = '';
     protected ?OpenAccessDto $openAccess = null;
     /*
@@ -209,8 +211,19 @@ class PublicationDto
         $this->releaseYear = $releaseYear;
     }
 
+    public function getPublicationTypeDto(): PublicationTypeDto
+    {
+        return $this->publicationTypeDto;
+    }
+
+    public function setPublicationTypeDto(PublicationTypeDto $publicationTypeDto): void
+    {
+        $this->publicationTypeDto = $publicationTypeDto;
+    }
+    
     static public function fromArray(array $data): PublicationDto
     {
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($data, 'Optional Title');
         $dto = new self();
         $dto->setObjectId($data['id']);
         $dto->setDetails($data);
@@ -229,7 +242,7 @@ class PublicationDto
         $dto->setStatus(StatusDto::fromArray($data['status']) ?? null);
         $dto->setSubjectAreas(array_map(fn($item) => SubjectAreaDto::fromArray($item), $data['subjectAreas'] ?? []));
         $dto->setTitle($data['title']);
-        $dto->setType($data['type']);
+        $dto->setPublicationTypeDto(PublicationTypeDto::fromArray($data['publicationType']));
         $dto->setVisibility(VisibilityDto::fromArray($data['visibility']) ?? null);
         return $dto;
     }
