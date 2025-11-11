@@ -32,7 +32,7 @@ class PublicationDto
     use WithTitle;
     use WithVisibility;
 
-    protected PublicationTypeDto $publicationTypeDto;
+    protected PublicationTypeDto $publicationType;
     
     protected string $abstract = '';
     protected ?OpenAccessDto $openAccess = null;
@@ -211,19 +211,18 @@ class PublicationDto
         $this->releaseYear = $releaseYear;
     }
 
-    public function getPublicationTypeDto(): PublicationTypeDto
+    public function getPublicationType(): PublicationTypeDto
     {
-        return $this->publicationTypeDto;
+        return $this->publicationType;
     }
 
-    public function setPublicationTypeDto(PublicationTypeDto $publicationTypeDto): void
+    public function setPublicationType(PublicationTypeDto $publicationType): void
     {
-        $this->publicationTypeDto = $publicationTypeDto;
+        $this->publicationType = $publicationType;
     }
     
     static public function fromArray(array $data): PublicationDto
     {
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($data, 'Optional Title');
         $dto = new self();
         $dto->setObjectId($data['id']);
         $dto->setDetails($data);
@@ -231,7 +230,7 @@ class PublicationDto
 
         $dto->setAbstract($data['abstract'] ?? '');
         $dto->setCitations($data['citations'] ?? []);
-        if ($data['openAccess']) {
+        if ($data['openAccess'] ?? false) {
             $dto->setOpenAccess(OpenAccessDto::fromArray($data['openAccess']));
         }
         $dto->setKeywords(array_map(fn($item) => KeywordDto::fromArray($item), $data['keywords'] ?? []));
@@ -242,7 +241,7 @@ class PublicationDto
         $dto->setStatus(StatusDto::fromArray($data['status']) ?? null);
         $dto->setSubjectAreas(array_map(fn($item) => SubjectAreaDto::fromArray($item), $data['subjectAreas'] ?? []));
         $dto->setTitle($data['title']);
-        $dto->setPublicationTypeDto(PublicationTypeDto::fromArray($data['publicationType']));
+        $dto->setPublicationType(PublicationTypeDto::fromArray($data['publicationType']));
         $dto->setVisibility(VisibilityDto::fromArray($data['visibility']) ?? null);
         return $dto;
     }

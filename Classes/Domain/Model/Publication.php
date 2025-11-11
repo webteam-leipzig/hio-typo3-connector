@@ -14,7 +14,7 @@ class Publication extends AbstractEntity
 
     protected string $title = '';
 
-    protected ObjectStorage $publicationType;
+    protected string $type = '';
 
     protected ?string $releaseYear = null;
 
@@ -41,7 +41,6 @@ class Publication extends AbstractEntity
     public function initializeObject(): void
     {
         $this->citationStyles = new ObjectStorage();
-        $this->publicationType = new ObjectStorage();
     }
 
     public function getCitationStyles(): ObjectStorage
@@ -94,14 +93,14 @@ class Publication extends AbstractEntity
         $this->details = json_encode($details);
     }
 
-    public function getPublicationType(): ObjectStorage
+    public function getType(): string
     {
-        return $this->publicationType;
+        return $this->type;
     }
 
-    public function setPublicationType(ObjectStorage $publicationType): void
+    public function setType(string $publicationType): void
     {
-        $this->publicationType = $publicationType;
+        $this->type = $publicationType;
     }
 
     public function getReleaseYear(): ?string
