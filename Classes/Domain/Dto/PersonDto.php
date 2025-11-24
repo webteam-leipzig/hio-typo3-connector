@@ -8,6 +8,7 @@ use Wtl\HioTypo3Connector\Domain\Dto\Person\AddressDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Person\AttributeDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Person\DoctoralProgramDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Person\HabilitationDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Person\NameDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Person\OrgUnitDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Person\PatentDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Person\ProjectDto;
@@ -19,7 +20,6 @@ use Wtl\HioTypo3Connector\Trait\WithSearchIndex;
 
 class PersonDto
 {
-    use WithName;
     use WithObjectId;
     use WithDetails;
     use WithSearchIndex;
@@ -30,6 +30,7 @@ class PersonDto
     protected array $attributes = [];
     protected array $doctoralPrograms = [];
     protected array $habilitations = [];
+    protected NameDto $name;
     protected array $patents = [];
     protected array $projects = [];
     protected array $publications = [];
@@ -53,6 +54,15 @@ class PersonDto
     public function setAttributes(array $attributes): void
     {
         $this->attributes = $attributes;
+    }
+
+    public function getName(): NameDto
+    {
+        return $this->name;
+    }
+    public function setName(NameDto $name): void
+    {
+        $this->name = $name;
     }
 
     public function getPublications(): array
@@ -119,7 +129,7 @@ class PersonDto
     {
         $dto = new self();
         $dto->setObjectId($data['id']);
-        $dto->setName($data['name']['displayName'] ?? '');
+        $dto->setName(NameDto::fromArray($data['name']));
         $dto->setDetails($data);
         $dto->setSearchIndex($data);
 
