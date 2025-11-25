@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Wtl\HioTypo3Connector\Domain\Dto;
 
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use Wtl\HioTypo3Connector\Domain\Dto\Misc\LanguageDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Misc\VisibilityDto;
 use Wtl\HioTypo3Connector\Domain\Dto\ResearchInfrastructure\OrgUnitDto;
 use Wtl\HioTypo3Connector\Domain\Dto\ResearchInfrastructure\PublicationDto;
@@ -72,7 +73,7 @@ class ResearchInfrastructureDto
         $dto->setDescription($data['description'] ?? '');
         $dto->setDynamicObjects($data['dynamicObjects'] ?? []);
         $dto->setKind($data['kind'] ?? '');
-        $dto->setLanguage($data['language'] ?? '');
+        $dto->setLanguage(LanguageDto::fromArray($data['language']) ?? null);
         $dto->setOrgUnits(array_map(fn($item) => OrgUnitDto::fromArray($item), $data['orgUnits'] ?? []));
         $dto->setPublications(array_map(fn($item) => PublicationDto::fromArray($item), $data['publications'] ?? []));
         $dto->setTitle($data['title'] ?? '');
