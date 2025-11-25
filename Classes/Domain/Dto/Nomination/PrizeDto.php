@@ -10,7 +10,6 @@ use Wtl\HioTypo3Connector\Trait\WithDescription;
 use Wtl\HioTypo3Connector\Trait\WithId;
 use Wtl\HioTypo3Connector\Trait\WithStatus;
 use Wtl\HioTypo3Connector\Trait\WithTitle;
-use Wtl\HioTypo3Connector\Trait\WithType;
 
 class PrizeDto
 {
@@ -23,7 +22,7 @@ class PrizeDto
     protected ?string $category;
     protected ?EndowedDto $endowed;
 
-    protected ?TypeDto $type;
+    protected ?TypeDto $prizeType;
 
     public function getAwardingOrganizations(): ?array
     {
@@ -50,13 +49,13 @@ class PrizeDto
         $this->endowed = $endowed;
     }
 
-    public function getType(): ?TypeDto
+    public function getPrizeType(): ?TypeDto
     {
-        return $this->type;
+        return $this->prizeType;
     }
-    public function setType(?TypeDto $type): void
+    public function setPrizeType(?TypeDto $prizeType): void
     {
-        $this->type = $type;
+        $this->prizeType = $prizeType;
     }
 
     static function fromArray(array $data): self
@@ -69,7 +68,7 @@ class PrizeDto
         $instance->setId($data['id'] ?? null);
         $instance->setStatus(StatusDto::fromArray($data['status']) ?? null);
         $instance->setTitle($data['title'] ?? null);
-        $instance->setType(TypeDto::fromArray($data['type']) ?? null);
+        $instance->setPrizeType(TypeDto::fromArray($data['prizeType']) ?? null);
         return $instance;
     }
 }

@@ -23,7 +23,7 @@ class PrizeDto
     protected ?string $category;
     protected ?EndowedDto $endowed;
 
-    protected ?TypeDto $type;
+    protected ?PrizeTypeDto $prizeType;
 
     public function getOrgUnits(): ?array
     {
@@ -52,13 +52,13 @@ class PrizeDto
         $this->endowed = $endowed;
     }
 
-    public function getType(): ?TypeDto
+    public function getPrizeType(): ?PrizeTypeDto
     {
-        return $this->type;
+        return $this->prizeType;
     }
-    public function setType(?TypeDto $type): void
+    public function setPrizeType(?PrizeTypeDto $prizeType): void
     {
-        $this->type = $type;
+        $this->prizeType = $prizeType;
     }
 
     static function fromArray(array $data): self
@@ -71,7 +71,7 @@ class PrizeDto
         $instance->setOrgUnits(array_map(fn($item) => OrgUnitDto::fromArray($item), $data['orgUnits'] ?? []));
         $instance->setStatus(StatusDto::fromArray($data['status']) ?? null);
         $instance->setTitle($data['title'] ?? null);
-        $instance->setType(TypeDto::fromArray($data['type']) ?? null);
+        $instance->setPrizeType(PrizeTypeDto::fromArray($data['prizeType']) ?? null);
         return $instance;
     }
 }
