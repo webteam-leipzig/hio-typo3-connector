@@ -10,6 +10,7 @@ use Wtl\HioTypo3Connector\Domain\Dto\Misc\StatusDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Misc\VisibilityDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Project\FundingProgramDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Project\PersonDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Project\ProjectObjectiveDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Project\SubjectAreaDto;
 use Wtl\HioTypo3Connector\Trait\WithDetails;
 use Wtl\HioTypo3Connector\Trait\WithDynamicObjects;
@@ -46,7 +47,7 @@ class ProjectDto
      * @var string[]
      */
     protected array $keywords = [];
-    protected string $objective = '';
+    protected ?ProjectObjectiveDto $projectObjective;
     /**
      * @var PersonDto[]
      */
@@ -94,13 +95,13 @@ class ProjectDto
         $this->keywords = $keywords;
     }
 
-    public function getObjective(): string
+    public function getProjectObjective(): ?ProjectObjectiveDto
     {
-        return $this->objective;
+        return $this->projectObjective;
     }
-    public function setObjective(string $objective): void
+    public function setProjectObjective(?ProjectObjectiveDto $projectObjective): void
     {
-        $this->objective = $objective;
+        $this->projectObjective = $projectObjective;
     }
 
     public function getSubjectAreas(): array
@@ -170,7 +171,7 @@ class ProjectDto
             $project->setEndDate(new \DateTime($data['endDate']));
         }
         $project->setLanguage(LanguageDto::fromArray($data['language']) ?? null);
-        $project->setObjective($data['objective'] ?? '');
+        $project->setProjectObjective(isset($data['projectObjective']) ? ProjectObjectiveDto::fromArray($data['projectObjective']) : null);
         if (isset($data['startDate'])) {
             $project->setStartDate(new \DateTime($data['startDate']));
         }
