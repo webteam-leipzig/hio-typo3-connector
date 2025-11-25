@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Wtl\HioTypo3Connector\Domain\Dto;
 
-use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use Wtl\HioTypo3Connector\Domain\Dto\Person\AccountDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Person\AddressDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Person\AttributeDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Person\DoctoralProgramDto;
@@ -24,6 +24,11 @@ class PersonDto
     use WithDetails;
     use WithSearchIndex;
 
+    /**
+     * @var AccountDto[]
+     */
+    protected array $accounts = [];
+
     //  @var AddressDto[]
     protected array $addresses = [];
     // @var AttributeDto[]
@@ -35,6 +40,15 @@ class PersonDto
     protected array $projects = [];
     protected array $publications = [];
     protected array $orgUnits = [];
+
+    public function getAccounts(): array
+    {
+        return $this->accounts;
+    }
+    public function setAccounts(array $accounts): void
+    {
+        $this->accounts = $accounts;
+    }
 
     public function getAddresses(): array
     {
@@ -133,6 +147,7 @@ class PersonDto
         $dto->setDetails($data);
         $dto->setSearchIndex($data);
 
+        $dto->setAccounts(array_map(fn($item) => AccountDto::fromArray($item), $data['accounts'] ?? []));
         $dto->setAddresses(array_map(fn($item) => AddressDto::fromArray($item), $data['addresses'] ?? []));
         $dto->setAttributes(array_map(fn($item) => AttributeDto::fromArray($item), $data['attributes'] ?? []));
         $dto->setDoctoralPrograms(array_map(fn($item) => DoctoralProgramDto::fromArray($item), $data['doctoralPrograms'] ?? []));
