@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Wtl\HioTypo3Connector\Domain\Dto;
 
+use Wtl\HioTypo3Connector\Domain\Dto\Misc\LanguageDto;
 use Wtl\HioTypo3Connector\Domain\Dto\SpinOff\OrgUnitDto;
 use Wtl\HioTypo3Connector\Trait\WithDescription;
 use Wtl\HioTypo3Connector\Trait\WithDetails;
@@ -68,7 +69,7 @@ class SpinOffDto
 
         $dto->setDescription($data['description'] ?? '');
         $dto->setEndDate(isset($data['endDate']) ? new \DateTime($data['endDate']) : null);
-        $dto->setLanguage($data['language'] ?? '');
+        $dto->setLanguage(LanguageDto::fromArray($data['language']) ?? null);
         $dto->setName($data['name'] ?? '');
         $dto->setStartDate(isset($data['startDate']) ? new \DateTime($data['startDate']) : null);
 
