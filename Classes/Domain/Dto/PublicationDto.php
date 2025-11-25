@@ -16,6 +16,7 @@ use Wtl\HioTypo3Connector\Domain\Dto\Publication\GlobalIdentifierDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Publication\JournalDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Publication\KeywordDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Publication\PersonDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Publication\PublicationResourceDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Publication\PublicationTypeDto;
 use Wtl\HioTypo3Connector\Trait\WithDetails;
 use Wtl\HioTypo3Connector\Trait\WithObjectId;
@@ -65,7 +66,7 @@ class PublicationDto
     protected array $researchAreas = [];
     protected array $researchAreasKdsf = [];
 
-    protected string $resource = '';
+    protected ?PublicationResourceDto $publicationResource;
     protected string $reviewed = '';
     protected array $subjectAreas = [];
     protected string $subtitle = '';
@@ -89,10 +90,6 @@ class PublicationDto
     public function getDocumentType(): ?DocumentTypeDto
     {
         return $this->documentType;
-    }
-    public function getResource(): string
-    {
-        return $this->resource;
     }
     public function getReviewed(): string
     {
@@ -135,11 +132,6 @@ class PublicationDto
     {
         $this->subjectAreas = $subjectAreas;
     }
-
-    public function setResource(string $resource): void
-    {
-        $this->resource = $resource;
-    }
     public function setReviewed(string $reviewed): void
     {
         $this->reviewed = $reviewed;
@@ -151,6 +143,15 @@ class PublicationDto
     public function setPersons(array $persons): void
     {
         $this->persons = $persons;
+    }
+
+    public function getPublicationResource(): ?PublicationResourceDto
+    {
+        return $this->publicationResource;
+    }
+    public function setPublicationResource(?PublicationResourceDto $publicationResource): void
+    {
+        $this->publicationResource = $publicationResource;
     }
 
     public function getJournal(): ?JournalDto
@@ -243,7 +244,8 @@ class PublicationDto
         $dto->setKeyWords(array_map(fn($item) => KeywordDto::fromArray($item), $data['keywords'] ?? []));
         $dto->setOpenAccess(isset($data['openAccess']) ? OpenAccessDto::fromArray($data['openAccess']) : null);
         $dto->setPersons(array_map(fn($item) => PersonDto::fromArray($item), $data['persons'] ?? []));
-        $dto->setPublicationType(PublicationTypeDto::fromArray($data['publicationType']));
+        $dto->setPublicationResource(isset($data['publicationResource']) ? PublicationResourceDto::fromArray($data['publicationResource']) : null);
+        $dto->setPublicationType(isset($data['publicationType']) ? PublicationTypeDto::fromArray($data['publicationType']) : null);
         $dto->setReleaseYear($data['releaseYear'] ?? null);
         $dto->setResearchAreas(array_map(fn($item) => ResearchAreaDto::fromArray($item), $data['researchAreas'] ?? []));
         $dto->setResearchAreasKdsf(array_map(fn($item) => ResearchAreaKdsfDto::fromArray($item), $data['researchAreasKdsf'] ?? []));
