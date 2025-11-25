@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Wtl\HioTypo3Connector\Domain\Dto;
 
+use Wtl\HioTypo3Connector\Domain\Dto\Misc\LanguageDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Misc\OpenAccessDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Misc\ResearchAreaDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Misc\ResearchAreaKdsfDto;
@@ -10,6 +11,7 @@ use Wtl\HioTypo3Connector\Domain\Dto\Misc\StatusDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Misc\SubjectAreaDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Misc\VisibilityDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Publication\ConferenceDto;
+use Wtl\HioTypo3Connector\Domain\Dto\Publication\DocumentTypeDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Publication\GlobalIdentifierDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Publication\JournalDto;
 use Wtl\HioTypo3Connector\Domain\Dto\Publication\KeywordDto;
@@ -33,7 +35,7 @@ class PublicationDto
     use WithVisibility;
 
     protected PublicationTypeDto $publicationType;
-    
+
     protected string $abstract = '';
     protected ?OpenAccessDto $openAccess = null;
     /*
@@ -41,12 +43,15 @@ class PublicationDto
      */
     protected array $citations = [];
     protected ?ConferenceDto $conference = null;
-    protected string $document = '';
+    protected ?DocumentTypeDto $documentType;
     /**
      * @var GlobalIdentifierDto[]
      */
     protected array $globalIdentifiers;
     protected ?JournalDto $journal = null;
+    /**
+     * @var KeywordDto[]
+     */
     protected array $keywords = [];
     /*
          *  @var LanguageDto[]
@@ -81,9 +86,9 @@ class PublicationDto
     {
         return $this->abstract;
     }
-    public function getDocument(): string
+    public function getDocumentType(): ?DocumentTypeDto
     {
-        return $this->document;
+        return $this->documentType;
     }
     public function getResource(): string
     {
@@ -101,9 +106,9 @@ class PublicationDto
     {
         $this->abstract = $abstract;
     }
-    public function setDocument(string $document): void
+    public function setDocumentType(?DocumentTypeDto $documentType): void
     {
-        $this->document = $document;
+        $this->documentType = $documentType;
     }
 
     public function getResearchAreas(): array
@@ -220,7 +225,7 @@ class PublicationDto
     {
         $this->publicationType = $publicationType;
     }
-    
+
     static public function fromArray(array $data): PublicationDto
     {
         $dto = new self();
@@ -230,18 +235,21 @@ class PublicationDto
 
         $dto->setAbstract($data['abstract'] ?? '');
         $dto->setCitations($data['citations'] ?? []);
-        if ($data['openAccess'] ?? false) {
-            $dto->setOpenAccess(OpenAccessDto::fromArray($data['openAccess']));
-        }
-        $dto->setKeywords(array_map(fn($item) => KeywordDto::fromArray($item), $data['keywords'] ?? []));
+        $dto->setConference(isset($data['conference']) ? ConferenceDto::fromArray($data['conference']) : null);
+        $dto->setDocumentType(isset($data['documentType']) ? DocumentTypeDto::fromArray($data['documentType']) : null);
+        $dto->setGlobalIdentifiers(array_map(fn($item) => GlobalIdentifierDto::fromArray($item), $data['globalIdentifiers'] ?? []));
+        $dto->setJournal(isset($data['journal']) ? JournalDto::fromArray($data['journal']) : null);
+        $dto->setLanguages(array_map(fn($item) => LanguageDto::fromArray($item), $data['languages'] ?? []));
+        $dto->setKeyWords(array_map(fn($item) => KeywordDto::fromArray($item), $data['keywords'] ?? []));
+        $dto->setOpenAccess(isset($data['openAccess']) ? OpenAccessDto::fromArray($data['openAccess']) : null);
         $dto->setPersons(array_map(fn($item) => PersonDto::fromArray($item), $data['persons'] ?? []));
+        $dto->setPublicationType(PublicationTypeDto::fromArray($data['publicationType']));
         $dto->setReleaseYear($data['releaseYear'] ?? null);
         $dto->setResearchAreas(array_map(fn($item) => ResearchAreaDto::fromArray($item), $data['researchAreas'] ?? []));
         $dto->setResearchAreasKdsf(array_map(fn($item) => ResearchAreaKdsfDto::fromArray($item), $data['researchAreasKdsf'] ?? []));
         $dto->setStatus(StatusDto::fromArray($data['status']) ?? null);
         $dto->setSubjectAreas(array_map(fn($item) => SubjectAreaDto::fromArray($item), $data['subjectAreas'] ?? []));
         $dto->setTitle($data['title']);
-        $dto->setPublicationType(PublicationTypeDto::fromArray($data['publicationType']));
         $dto->setVisibility(VisibilityDto::fromArray($data['visibility']) ?? null);
         return $dto;
     }
