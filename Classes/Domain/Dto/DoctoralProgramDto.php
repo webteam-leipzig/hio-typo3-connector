@@ -50,7 +50,7 @@ class DoctoralProgramDto
     /**
      * @var ResearchAreaKdsfDto[]
      */
-    protected array $researchAreasKdfs = [];
+    protected array $researchAreasKdsf = [];
     protected ?ScholarshipAvailableDto $scholarshipAvailable;
 
     /**
@@ -97,14 +97,14 @@ class DoctoralProgramDto
     {
         $this->researchAreas = $researchAreas;
     }
-    public function getResearchAreasKdfs(): array
+    public function getResearchAreasKdsf(): array
     {
-        return $this->researchAreasKdfs;
+        return $this->researchAreasKdsf;
     }
 
-    public function setResearchAreasKdfs(array $researchAreasKdfs): void
+    public function setResearchAreasKdsf(array $researchAreasKdsf): void
     {
-        $this->researchAreasKdfs = $researchAreasKdfs;
+        $this->researchAreasKdsf = $researchAreasKdsf;
     }
 
     public function getPersons(): array
@@ -151,7 +151,7 @@ class DoctoralProgramDto
         $dto->setLanguage(LanguageDto::fromArray($data['language']) ?? null);
         $dto->setSubjectAreas(array_map(fn($item) => SubjectAreaDto::fromArray($item), $data['subjectAreas'] ?? []));
         $dto->setResearchAreas(array_map(fn($item) => ResearchAreaDto::fromArray($item), $data['researchAreas'] ?? []));
-        $dto->setResearchAreasKdfs(array_map(fn($item) => ResearchAreaKdsfDto::fromArray($item), $data['researchAreasKdfs'] ?? []));
+        $dto->setResearchAreasKdsf(array_map(fn($item) => ResearchAreaKdsfDto::fromArray($item), $data['researchAreasKdsf'] ?? []));
         $dto->setPersons(array_map(fn($item) => PersonDto::fromArray($item), $data['persons'] ?? []));
         $dto->setOrgUnits(array_map(fn($item) => OrgUnitDto::fromArray($item), $data['organizations'] ?? []));
         $dto->setScholarshipAvailable(ScholarshipAvailableDto::fromArray($data['scholarshipAvailable']) ?? null);
