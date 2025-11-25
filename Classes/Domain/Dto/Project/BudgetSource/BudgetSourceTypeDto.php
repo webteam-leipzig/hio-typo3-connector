@@ -1,12 +1,12 @@
 <?php
 
-namespace Wtl\HioTypo3Connector\Domain\Dto\Misc;
+namespace Wtl\HioTypo3Connector\Domain\Dto\Project\BudgetSource;
 
 use Wtl\HioTypo3Connector\Trait\WithId;
 use Wtl\HioTypo3Connector\Trait\WithName;
 use Wtl\HioTypo3Connector\Trait\WithUniqueName;
 
-class EndowedDto
+class BudgetSourceTypeDto
 {
     use WithId;
     use WithName;
