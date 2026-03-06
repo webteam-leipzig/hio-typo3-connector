@@ -259,6 +259,6 @@ ExtensionUtility::registerPlugin(
 );
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['hiotypo3connector_publicationhighlights'] = 'pi_flexform';
 ExtensionManagementUtility::addPiFlexFormValue(
-    'hi_typo3_connector_publicationhighlights',
+    'hiotypo3connector_publicationhighlights',
     'FILE:EXT:hio_typo3_connector/Configuration/FlexForm/PublicationHighlights.xml',
 );
