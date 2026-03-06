@@ -257,7 +257,7 @@ ExtensionUtility::registerPlugin(
     'tx-hio_typo3_connector-publication-highlights',
     'hio-publisher',
 );
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['hi_typo3_connector_publicationhighlights'] = 'pi_flexform';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['hiotypo3connector_publicationhighlights'] = 'pi_flexform';
 ExtensionManagementUtility::addPiFlexFormValue(
     'hi_typo3_connector_publicationhighlights',
     'FILE:EXT:hio_typo3_connector/Configuration/FlexForm/PublicationHighlights.xml',
