@@ -11,6 +11,12 @@ ExtensionManagementUtility::addTcaSelectItemGroup(
     'hio-publisher',
     'LLL:EXT:hio_typo3_connector/Resources/Private/Language/locallang.xlf:plugin.group.hio_publisher'
 );
+ExtensionManagementUtility::addTcaSelectItemGroup(
+    'tt_content',
+    'CType',
+    'hio-publisher',
+    'LLL:EXT:hio_typo3_connector/Resources/Private/Language/locallang.xlf:plugin.group.hio_publisher'
+);
 
 ExtensionUtility::registerPlugin(
     'HioTypo3Connector',
@@ -251,8 +257,8 @@ ExtensionUtility::registerPlugin(
     'tx-hio_typo3_connector-publication-highlights',
     'hio-publisher',
 );
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['hiotypo3connector_publicationhighlights'] = 'pi_flexform';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['hi_typo3_connector_publicationhighlights'] = 'pi_flexform';
 ExtensionManagementUtility::addPiFlexFormValue(
-    'hiotypo3connector_publicationhighlights',
+    'hi_typo3_connector_publicationhighlights',
     'FILE:EXT:hio_typo3_connector/Configuration/FlexForm/PublicationHighlights.xml',
 );
