@@ -33,9 +33,11 @@ class AttachHioOrgUnitToHioPublicationsListener
             if ($publication === null) {
                 continue;
             }
-            $orgUnit->addPublication($publication);
-            $this->orgUnitRepository->update($orgUnit);
-            $this->persistenceManager->persistAll();
+            if (!$orgUnit->getPublications()->contains($publication)) {
+                $orgUnit->addPublication($publication);
+            }
         }
+        $this->orgUnitRepository->update($orgUnit);
+        $this->persistenceManager->persistAll();
     }
 }

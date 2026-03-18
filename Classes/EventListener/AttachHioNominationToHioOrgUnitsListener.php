@@ -30,9 +30,11 @@ class AttachHioNominationToHioOrgUnitsListener
             if ($orgUnit === null) {
                 continue;
             }
-            $nomination->addOrgUnit($orgUnit);
-            $this->nominationRepository->update($nomination);
-            $this->persistenceManager->persistAll();
+            if (!$nomination->getOrgUnits()->contains($orgUnit)) {
+                $nomination->addOrgUnit($orgUnit);
+            }
         }
+        $this->nominationRepository->update($nomination);
+        $this->persistenceManager->persistAll();
     }
 }

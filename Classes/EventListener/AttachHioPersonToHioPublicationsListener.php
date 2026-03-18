@@ -32,10 +32,13 @@ class AttachHioPersonToHioPublicationsListener
                 continue;
             }
 
-            // store the publication relation in the person
-            $person->addPublication($publication);
-            $this->personRepository->update($person);
-            $this->persistenceManager->persistAll();
+            if (!$person->getPublications()->contains($publication)) {
+                $person->addPublication($publication);
+            }
         }
+
+        $this->personRepository->update($person);
+        $this->persistenceManager->persistAll();
     }
+
 }

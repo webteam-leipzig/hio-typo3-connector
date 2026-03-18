@@ -31,9 +31,11 @@ class AttachHioNominationToHioProjectsListener
             if ($project === null) {
                 continue;
             }
-            $nomination->addProject($project);
-            $this->nominationRepository->update($nomination);
-            $this->persistenceManager->persistAll();
+            if (!$nomination->getProjects()->contains($project)) {
+                $nomination->addProject($project);
+            }
         }
+        $this->nominationRepository->update($nomination);
+        $this->persistenceManager->persistAll();
     }
 }

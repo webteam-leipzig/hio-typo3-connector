@@ -31,9 +31,11 @@ class AttachHioNominationToHioPublicationsListener
             if ($publication === null) {
                 continue;
             }
-            $nomination->addPublication($publication);
-            $this->nominationRepository->update($nomination);
-            $this->persistenceManager->persistAll();
+            if (!$nomination->getPublications()->contains($publication)) {
+                $nomination->addPublication($publication);
+            }
         }
+        $this->nominationRepository->update($nomination);
+        $this->persistenceManager->persistAll();
     }
 }

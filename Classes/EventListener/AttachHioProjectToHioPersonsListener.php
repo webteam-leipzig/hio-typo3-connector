@@ -30,9 +30,11 @@ class AttachHioProjectToHioPersonsListener
             if ($person === null) {
                 continue;
             }
-            $person->addProject($project);
+            if (!$person->getProjects()->contains($project)) {
+                $person->addProject($project);
+            }
             $this->personRepository->update($person);
-            $this->persistenceManager->persistAll();
         }
+        $this->persistenceManager->persistAll();
     }
 }

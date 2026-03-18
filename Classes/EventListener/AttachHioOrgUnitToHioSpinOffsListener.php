@@ -31,9 +31,11 @@ class AttachHioOrgUnitToHioSpinOffsListener
             if ($spinOff === null) {
                 continue;
             }
-            $orgUnit->addSpinOff($spinOff);
-            $this->orgUnitRepository->update($orgUnit);
-            $this->persistenceManager->persistAll();
+            if (!$orgUnit->getSpinOffs()->contains($spinOff)) {
+                $orgUnit->addSpinOff($spinOff);
+            }
         }
+        $this->orgUnitRepository->update($orgUnit);
+        $this->persistenceManager->persistAll();
     }
 }

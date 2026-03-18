@@ -30,9 +30,11 @@ class AttachHioOrgUnitToHioPersonsListener
             if ($person === null) {
                 continue;
             }
-            $orgUnit->addPerson($person);
-            $this->orgUnitRepository->update($orgUnit);
-            $this->persistenceManager->persistAll();
+            if (!$orgUnit->getPersons()->contains($person)) {
+                $orgUnit->addPerson($person);
+            }
         }
+        $this->orgUnitRepository->update($orgUnit);
+        $this->persistenceManager->persistAll();
     }
 }

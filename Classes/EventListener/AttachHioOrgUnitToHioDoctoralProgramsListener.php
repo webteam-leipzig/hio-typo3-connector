@@ -22,7 +22,7 @@ class AttachHioOrgUnitToHioDoctoralProgramsListener
     public function __invoke(AttachHioOrgUnitToHioDoctoralProgramsEvent $event): void
     {
         $orgUnit = $this->orgUnitRepository->findByObjectId($event->getHioOrgUnitObjectId());
-//        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($orgUnit, 'Received Org Unit event');
+
         if ($orgUnit === null) {
             return;
         }
@@ -32,9 +32,11 @@ class AttachHioOrgUnitToHioDoctoralProgramsListener
             if ($doctoralProgram === null) {
                 continue;
             }
-            $orgUnit->addDoctoralProgram($doctoralProgram);
-            $this->orgUnitRepository->update($orgUnit);
-            $this->persistenceManager->persistAll();
+            if (!$orgUnit->getDoctoralPrograms()->contains($doctoralProgram)) {
+                $orgUnit->addDoctoralProgram($doctoralProgram);
+            }
         }
+        $this->orgUnitRepository->update($orgUnit);
+        $this->persistenceManager->persistAll();
     }
 }

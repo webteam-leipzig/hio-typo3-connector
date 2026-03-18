@@ -31,9 +31,11 @@ class AttachHioOrgUnitToHioHabilitationsListener
             if ($habilitation === null) {
                 continue;
             }
-            $orgUnit->addHabilitation($habilitation);
-            $this->orgUnitRepository->update($orgUnit);
-            $this->persistenceManager->persistAll();
+            if (!$orgUnit->getHabilitations()->contains($habilitation)) {
+                $orgUnit->addHabilitation($habilitation);
+            }
         }
+        $this->orgUnitRepository->update($orgUnit);
+        $this->persistenceManager->persistAll();
     }
 }

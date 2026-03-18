@@ -30,9 +30,11 @@ class AttachHioDoctoralProgramToHioPersonsListener
             if ($person === null) {
                 continue;
             }
-            $person->addDoctoralProgram($doctoralProgram);
+            if (!$person->getDoctoralPrograms()->contains($doctoralProgram)) {
+                $person->addDoctoralProgram($doctoralProgram);
+            }
             $this->personRepository->update($person);
-            $this->persistenceManager->persistAll();
         }
+        $this->persistenceManager->persistAll();
     }
 }

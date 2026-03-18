@@ -31,9 +31,11 @@ class AttachHioOrgUnitToHioPatentsListener
             if ($patent === null) {
                 continue;
             }
-            $orgUnit->addPatent($patent);
-            $this->orgUnitRepository->update($orgUnit);
-            $this->persistenceManager->persistAll();
+            if (!$orgUnit->getPatents()->contains($patent)) {
+                $orgUnit->addPatent($patent);
+            }
         }
+        $this->orgUnitRepository->update($orgUnit);
+        $this->persistenceManager->persistAll();
     }
 }

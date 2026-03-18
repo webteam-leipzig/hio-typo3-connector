@@ -31,9 +31,11 @@ class AttachHioOrgUnitToHioProjectsListener
             if ($project === null) {
                 continue;
             }
-            $orgUnit->addProject($project);
-            $this->orgUnitRepository->update($orgUnit);
-            $this->persistenceManager->persistAll();
+            if (!$orgUnit->getProjects()->contains($project)) {
+                $orgUnit->addProject($project);
+            }
         }
+        $this->orgUnitRepository->update($orgUnit);
+        $this->persistenceManager->persistAll();
     }
 }

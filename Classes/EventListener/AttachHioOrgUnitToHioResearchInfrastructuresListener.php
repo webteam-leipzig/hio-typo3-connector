@@ -25,15 +25,17 @@ class AttachHioOrgUnitToHioResearchInfrastructuresListener
         if ($orgUnit === null) {
             return;
         }
-//        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($orgUnit, 'Org Unit');
+
         foreach ($event->getHioResearchInfrastructureObjectIds() as $hioResearchInfrastructureObjectId) {
             $researchInfrastructure = $this->researchInfrastructureRepository->findByObjectId($hioResearchInfrastructureObjectId);
             if ($researchInfrastructure === null) {
                 continue;
             }
-            $orgUnit->addResearchInfrastructure($researchInfrastructure);
-            $this->orgUnitRepository->update($orgUnit);
-            $this->persistenceManager->persistAll();
+            if (!$orgUnit->getResearchInfrastructures()->contains($researchInfrastructure)) {
+                $orgUnit->addResearchInfrastructure($researchInfrastructure);
+            }
         }
+        $this->orgUnitRepository->update($orgUnit);
+        $this->persistenceManager->persistAll();
     }
 }

@@ -30,9 +30,11 @@ class AttachHioHabilitationToHioPersonsListener
             if ($person === null) {
                 continue;
             }
-            $person->addHabilitation($habilitation);
+            if (!$person->getHabilitations()->contains($habilitation)) {
+                $person->addHabilitation($habilitation);
+            }
             $this->personRepository->update($person);
-            $this->persistenceManager->persistAll();
         }
+        $this->persistenceManager->persistAll();
     }
 }

@@ -33,9 +33,11 @@ class AttachHioPublicationToHioPersonsListener
             if ($person === null) {
                 continue;
             }
-            $person->addPublication($publication);
+            if (!$person->getPublications()->contains($publication)) {
+                $person->addPublication($publication);
+            }
             $this->personRepository->update($person);
-            $this->persistenceManager->persistAll();
         }
+        $this->persistenceManager->persistAll();
     }
 }

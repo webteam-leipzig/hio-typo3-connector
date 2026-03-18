@@ -31,9 +31,11 @@ class AttachHioPersonToHioPatentsListener
             if ($patent === null) {
                 continue;
             }
-            $person->addPatent($patent);
-            $this->personRepository->update($person);
-            $this->persistenceManager->persistAll();
+            if (!$person->getPatents()->contains($patent)) {
+                $person->addPatent($patent);
+            }
         }
+        $this->personRepository->update($person);
+        $this->persistenceManager->persistAll();
     }
 }

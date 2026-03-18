@@ -30,9 +30,11 @@ class AttachHioNominationToHioPersonsListener
             if ($person === null) {
                 continue;
             }
-            $nomination->addNominee($person);
-            $this->nominationRepository->update($nomination);
-            $this->persistenceManager->persistAll();
+            if (!$nomination->getNominees()->contains($person)) {
+                $nomination->addNominee($person);
+            }
         }
+        $this->nominationRepository->update($nomination);
+        $this->persistenceManager->persistAll();
     }
 }
